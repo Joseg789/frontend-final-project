@@ -7,7 +7,7 @@ import RouterApp from "./routes/RouterApp.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ProductsProvider>
-      <RouterApp></RouterApp>
+      <RouterApp />
     </ProductsProvider>
   </StrictMode>,
 );

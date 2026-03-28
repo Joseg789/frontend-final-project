@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useProducts } from "./context/ProductsContext";
 import Product from "./components/Product";
-import ProductForm from "./components/ProductForm";
 function App() {
   const { getProducts, products } = useProducts();
 
@@ -19,7 +18,6 @@ function App() {
               </div>
             ))}
         </div>
-        <ProductForm />
       </div>
     </>
   );

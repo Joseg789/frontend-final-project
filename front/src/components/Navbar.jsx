@@ -1,18 +1,44 @@
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "./SearchIcon";
 import { useState } from "react";
+import CartIcon from "./CartIcon";
+import Logo from "./Logo";
 
 function Navbar({ admin = false }) {
   const [searchInput, setSearchInput] = useState("");
+  const [activeLink, setActiveLink] = useState("");
+
+  const adminLinks = [
+    "Productos",
+    "Camisetas",
+    "Pantalones",
+    "Zapatos",
+    "Admin",
+    "Crear",
+    "Nosotros",
+    "Accesorios",
+  ];
+
+  const userLinks = [
+    "Productos",
+    "Camisetas",
+    "Pantalones",
+    "Zapatos",
+    "Nosotros",
+    "Accesorios",
+  ];
+
   const navigate = useNavigate();
 
-  // Función para manejar la búsqueda
+  //  elegimos qué links usar
+  const currentLinks = admin ? adminLinks : userLinks;
+
+  // Función búsqueda
   const handleSearch = (e) => {
     e.preventDefault();
-    //quitar espacios
-    const query = searchInput;
+    const query = searchInput.trim();
     if (query) {
-      navigate(`/search/${encodeURIComponent(query)}`); // redirige a la página de resultados
+      navigate(`/search/${encodeURIComponent(query)}`);
       setSearchInput("");
     }
   };
@@ -21,56 +47,23 @@ function Navbar({ admin = false }) {
     <nav className="navbar">
       {/* Logo */}
       <div className="navbar-logo">
-        <Link className="links" to={admin ? "/dashboard" : "/"}>
-          MiTienda
+        <Link to="/" onClick={() => setActiveLink("")}>
+          <Logo className="logo" />
         </Link>
       </div>
 
-      {/* Links de navegación */}
+      {/* Links */}
       <div className="navbar-links">
-        {admin ? (
-          <>
-            <Link className="links" to="/dashboard">
-              Productos
-            </Link>
-            <Link className="links" to="/dashboard/categoria/camisetas">
-              Camisetas
-            </Link>
-            <Link className="links" to="/dashboard/categoria/pantalones">
-              Pantalones
-            </Link>
-            <Link className="links" to="/dashboard/categoria/zapatos">
-              Zapatos
-            </Link>
-            <Link className="links" to="/dashboard/categoria/accesorios">
-              Accesorios
-            </Link>
-            <Link className="links navbar-btn" to="/dashboard/new">
-              Crear Producto
-            </Link>
-            <Link className="links" to="/dashboard">
-              Admin
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link className="links" to="/">
-              Productos
-            </Link>
-            <Link className="links" to="/categoria/camisetas">
-              Camisetas
-            </Link>
-            <Link className="links" to="/categoria/pantalones">
-              Pantalones
-            </Link>
-            <Link className="links" to="/categoria/zapatos">
-              Zapatos
-            </Link>
-            <Link className="links" to="/categoria/accesorios">
-              Accesorios
-            </Link>
-          </>
-        )}
+        {currentLinks.map((l) => (
+          <Link
+            key={l}
+            className={`toggle-btn links ${activeLink === l ? "active" : ""}`}
+            to={`/${l.toLowerCase()}`}
+            onClick={() => setActiveLink(l)}
+          >
+            {l}
+          </Link>
+        ))}
       </div>
 
       {/* Search */}
@@ -82,19 +75,22 @@ function Navbar({ admin = false }) {
             placeholder="Buscar..."
             className="input-plain"
             value={searchInput}
+            style={{ color: "white" }}
             onChange={(e) => setSearchInput(e.target.value)}
           />
           <button type="submit">
             <SearchIcon className="search-icon" />
           </button>
         </form>
-        <p>___________________</p>
       </div>
 
-      {/* Acciones: Login / Logout */}
+      {/* Acciones */}
       <div className="navbar-actions">
         {admin ? (
-          <form action="/logout" method="POST">
+          <form
+            action="https://backend-final-project-h156.onrender.com/auth/logout"
+            method="POST"
+          >
             <input type="submit" className="links btn-logout" value="Logout" />
           </form>
         ) : (
@@ -103,6 +99,9 @@ function Navbar({ admin = false }) {
           </Link>
         )}
       </div>
+
+      {/* Carrito */}
+      <CartIcon />
     </nav>
   );
 }
