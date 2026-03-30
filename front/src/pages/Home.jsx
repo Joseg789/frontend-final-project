@@ -1,7 +1,15 @@
-import React from "react";
+import Gallery from "../components/Gallery";
+import Carousel from "../components/Carousel";
+import Footer from "../components/Footer";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <Carousel />
+      <Gallery />
+      <Footer />
+    </>
+  );
 }
 
 export default Home;

@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import SearchIcon from "./SearchIcon";
 import { useState } from "react";
-import CartIcon from "./CartIcon";
 import Logo from "./Logo";
+import CartIcon from "./icons/CartIcon";
+import SearchIcon from "./icons/SearchIcon";
 
 function Navbar({ admin = false }) {
   const [searchInput, setSearchInput] = useState("");
   const [activeLink, setActiveLink] = useState("");
+  const navigate = useNavigate();
 
   const adminLinks = [
     "Productos",
@@ -27,8 +28,6 @@ function Navbar({ admin = false }) {
     "Nosotros",
     "Accesorios",
   ];
-
-  const navigate = useNavigate();
 
   //  elegimos qué links usar
   const currentLinks = admin ? adminLinks : userLinks;
@@ -57,7 +56,7 @@ function Navbar({ admin = false }) {
         {currentLinks.map((l) => (
           <Link
             key={l}
-            className={`toggle-btn links ${activeLink === l ? "active" : ""}`}
+            className={` links ${activeLink === l ? "active" : ""}`}
             to={`/${l.toLowerCase()}`}
             onClick={() => setActiveLink(l)}
           >
@@ -78,8 +77,8 @@ function Navbar({ admin = false }) {
             style={{ color: "white" }}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button type="submit">
-            <SearchIcon className="search-icon" />
+          <button type="submit" className="button-search">
+            <SearchIcon />
           </button>
         </form>
       </div>
