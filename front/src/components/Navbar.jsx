@@ -9,24 +9,16 @@ function Navbar({ admin = false }) {
   const [activeLink, setActiveLink] = useState("");
   const navigate = useNavigate();
 
-  const adminLinks = [
-    "Productos",
-    "Camisetas",
-    "Pantalones",
-    "Zapatos",
-    "Admin",
-    "Crear",
-    "Nosotros",
-    "Accesorios",
-  ];
+  const adminLinks = ["productos", "admin/Editar", "crear", "admin"];
 
   const userLinks = [
-    "Productos",
-    "Camisetas",
-    "Pantalones",
-    "Zapatos",
-    "Nosotros",
-    "Accesorios",
+    "productos",
+    "categoria/camisetas",
+    "categoria/pantalones",
+    "categoria/zapatos",
+    "categoria/accesorios",
+    "hombre",
+    "mujer",
   ];
 
   //  elegimos qué links usar
@@ -37,7 +29,7 @@ function Navbar({ admin = false }) {
     e.preventDefault();
     const query = searchInput.trim();
     if (query) {
-      navigate(`/search/${encodeURIComponent(query)}`);
+      navigate(`/search/${encodeURIComponent(query)}`); // redirige a la página de resultados encodeURIComponent para manejar caracteres especiales
       setSearchInput("");
     }
   };
@@ -60,14 +52,17 @@ function Navbar({ admin = false }) {
             to={`/${l.toLowerCase()}`}
             onClick={() => setActiveLink(l)}
           >
-            {l}
+            {l.split("/").slice(-1)[0].charAt(0).toUpperCase() +
+              l.split("/").slice(-1)[0].slice(1)}{" "}
+            {l === "admin" ? "Dashboard" : ""}
+            {/* Capitaliza el último segmento del path */}
           </Link>
         ))}
       </div>
 
       {/* Search */}
-      <div className="search">
-        <form className="search-input" onSubmit={handleSearch}>
+      <div className="search-navbar">
+        <form className="search-input-nav" onSubmit={handleSearch}>
           <input
             type="text"
             name="searchInput"
@@ -77,7 +72,7 @@ function Navbar({ admin = false }) {
             style={{ color: "white" }}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button type="submit" className="button-search">
+          <button type="submit" className="button-search-nav">
             <SearchIcon />
           </button>
         </form>
@@ -100,7 +95,9 @@ function Navbar({ admin = false }) {
       </div>
 
       {/* Carrito */}
-      <CartIcon />
+      <Link to="/cart" className="cart-icon">
+        <CartIcon />
+      </Link>
     </nav>
   );
 }

@@ -1,21 +1,16 @@
-function SearchIcon({ color = "white", size = 20, bg = "black" }) {
+function SearchIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={24}
-      height={24}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="search-icon"
-      style={{ border: "0" }}
+      fill="currentColor"
+      className="size-6 search-icon-nav"
     >
-      <path stroke="none" d="M0 0h24v24H0z" fill="black" />
-      <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-      <path d="M21 21l-6 -6" />
+      <path
+        fillRule="evenodd"
+        d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+        clipRule="evenodd"
+      />
     </svg>
   );
 }

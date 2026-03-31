@@ -1,7 +1,9 @@
+import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductsContext";
 import Product from "./Product";
 
-function Category({ category }) {
+function Category() {
+  const { category } = useParams();
   const { products } = useProducts();
   const categoryCap = category[0].toUpperCase() + category.slice(1); //capitalice
   const filtredProducts = products.filter(

@@ -12,7 +12,9 @@ function SearchResults({ products }) {
           (p) =>
             p.nombre.toLowerCase().includes(searchTerm) ||
             p.categoria.toLowerCase().includes(searchTerm) ||
-            p.descripcion.toLowerCase().includes(searchTerm),
+            p.descripcion.toLowerCase().includes(searchTerm) ||
+            p.talla.toLowerCase().includes(searchTerm) ||
+            p.genero.toLowerCase().includes(searchTerm),
         );
 
   return (

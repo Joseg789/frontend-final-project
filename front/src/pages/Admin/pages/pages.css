@@ -1,0 +1,23 @@
+/* Contenedor principal de cada página */
+.page-container {
+  padding: 1.5rem; /* espaciado interno */
+  background-color: #f3f4f6; /* fondo gris suave */
+  min-height: 100%; /* ocupa toda la altura disponible */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* espacio entre elementos */
+}
+
+/* Título principal */
+.page-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #111827; /* texto oscuro */
+}
+
+/* Subtítulo opcional */
+.page-subtitle {
+  font-size: 1rem; /* text-base */
+  color: #6b7280; /* texto gris */
+  margin-top: 0.25rem; /* mt-1 */
+}

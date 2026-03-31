@@ -81,6 +81,12 @@ const images = [
     src: "https://images.unsplash.com/photo-1726441205310-69282da4d13c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "New Arrivals",
   },
+
+  {
+    id: 19,
+    src: "https://images.unsplash.com/photo-1762236095026-a8424adddbb7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQyfHxtb2RhJTIwbW9udGElQzMlQjFhfGVufDB8fDB8fHww",
+    title: "New Arrivals",
+  },
 ];
 
 export default function Gallery() {
