@@ -5,8 +5,6 @@ import SearchResults from "../search/SearchResult";
 import { useProducts } from "../context/ProductsContext";
 import Nosotros from "../components/Nosotros";
 import Category from "../components/Category";
-import Hombre from "../pages/Hombre";
-import Mujer from "../pages/Mujer";
 import Logout from "../pages/Logout";
 import Login from "../pages/Login";
 import ProductForm from "../components/ProductForm";
@@ -22,7 +20,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import Cart from "../pages/Cart";
 import { Toaster } from "sonner";
-import { color } from "framer-motion";
+import GenderProducts from "../pages/GenderProducts";
+import Footer from "../components/Footer";
 
 function RouterApp() {
   const { products } = useProducts();
@@ -39,8 +38,14 @@ function RouterApp() {
             element={<SearchResults products={products} />}
           />
           <Route path="/categoria/:category" element={<Category />} />
-          <Route path="/hombre" element={<Hombre />}></Route>
-          <Route path="/mujer" element={<Mujer />}></Route>
+          <Route
+            path="/hombre"
+            element={<GenderProducts gender="hombre" />}
+          ></Route>
+          <Route
+            path="/mujer"
+            element={<GenderProducts gender="mujer" />}
+          ></Route>
           <Route path="/nosotros" element={<Nosotros />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
@@ -65,6 +70,8 @@ function RouterApp() {
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/crear" element={<ProductForm />}></Route>
         </Routes>
+        {/* Footer fijo abajo */}
+        <Footer />
       </Router>
     </>
   );

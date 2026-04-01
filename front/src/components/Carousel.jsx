@@ -1,3 +1,5 @@
+import "./Carousel.css";
+
 import { useEffect, useState } from "react";
 
 const slides = [
@@ -8,7 +10,7 @@ const slides = [
   },
   {
     id: 2,
-    img: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1678481645253-093d2d5553db?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     title: "Made for the City",
   },
   {

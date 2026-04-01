@@ -1,8 +1,10 @@
 import { motion } from "framer-motion"; // importamos motion para animar los paneles
 import { useState } from "react";
 import "./hero.css";
+import { useNavigate } from "react-router-dom";
 export default function Hero() {
   const [hovered, setHovered] = useState(null); //estado para saber que panel esta siendo hoverado
+  const navigate = useNavigate();
 
   return (
     <div className="hero">
@@ -40,7 +42,7 @@ export default function Hero() {
         >
           <h2>Hombre</h2>
           <p>Nueva colección 2026</p>
-          <button>Explorar</button>
+          <button onClick={() => navigate("/hombre")}>Explorar</button>
         </motion.div>
       </motion.div>
 
@@ -77,7 +79,7 @@ export default function Hero() {
         >
           <h2>Mujer</h2>
           <p>Estilo que define tendencia</p>
-          <button>Explorar</button>
+          <button onClick={() => navigate("/mujer")}>Explorar</button>
         </motion.div>
       </motion.div>
     </div>

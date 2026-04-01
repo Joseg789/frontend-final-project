@@ -1,0 +1,135 @@
+/* CAROUSEL*/
+
+.carousel {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;
+  height: auto;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* slides */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* slide activo */
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* texto encima */
+.content {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: white;
+}
+
+.content h2 {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+/* overlay oscuro elegante */
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+
+/* slides */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1s ease;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* activo */
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* overlay oscuro */
+.slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* texto */
+.content {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  color: white;
+}
+
+.content h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+/* animación texto */
+.slide.active .content h2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* dots */
+.dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background: white;
+  transform: scale(1.3);
+}

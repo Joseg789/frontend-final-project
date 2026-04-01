@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FacebookIcon from "./icons/FacebookIcon";
 import InstagramIcon from "./icons/InstagramIcon";
 import XIcon from "./icons/XIcon";
@@ -11,16 +12,16 @@ const Footer = () => {
           <h3>SHOP</h3>
           <ul>
             <li>
-              <a href="#">Men</a>
+              <Link to="/hombre">Men</Link>
             </li>
             <li>
-              <a href="#">Women</a>
+              <Link to="/mujer">Women</Link>
             </li>
             <li>
-              <a href="#">Kids</a>
+              <Link to="/kids">Kids</Link>
             </li>
             <li>
-              <a href="#">Sale</a>
+              <Link to="/sale">Sale</Link>
             </li>
           </ul>
         </div>
@@ -30,16 +31,16 @@ const Footer = () => {
           <h3>HELP</h3>
           <ul>
             <li>
-              <a href="#">Contact</a>
+              <Link to="/contact">Contact</Link>
             </li>
             <li>
-              <a href="#">Shipping</a>
+              <Link to="/shipping">Shipping</Link>
             </li>
             <li>
-              <a href="#">Returns</a>
+              <Link to="/returns">Returns</Link>
             </li>
             <li>
-              <a href="#">FAQ</a>
+              <Link to="/faq">FAQ</Link>
             </li>
           </ul>
         </div>
@@ -49,13 +50,13 @@ const Footer = () => {
           <h3>ABOUT</h3>
           <ul>
             <li>
-              <a href="#">Our Story</a>
+              <Link to="/our-story">Our Story</Link>
             </li>
             <li>
-              <a href="#">Sustainability</a>
+              <Link to="/sustainability">Sustainability</Link>
             </li>
             <li>
-              <a href="#">Careers</a>
+              <Link to="/careers">Careers</Link>
             </li>
           </ul>
         </div>

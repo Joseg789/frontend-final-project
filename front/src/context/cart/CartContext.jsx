@@ -1,16 +1,46 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const loadCartFromLocalStorage = () => {
+    const cart = localStorage.getItem("cart");
+    return cart ? JSON.parse(cart) : [];
+  };
+
+  const [cartItems, setCartItems] = useState(loadCartFromLocalStorage());
+
+  // ✅ Sync automático con localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
+    setCartItems((prevItems) => {
+      const existing = prevItems.find((item) => item._id === product._id);
+
+      if (existing) {
+        const updatedCart = prevItems.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+
+        toast.success(
+          `La cantidad de ${product.nombre} aumentó a ${
+            existing.quantity + 1
+          } 🛒`,
+        );
+
+        return updatedCart;
+      } else {
+        toast.success(`Producto añadido: ${product.nombre} 🛒`);
+        return [...prevItems, { ...product, quantity: 1 }];
+      }
+    });
   };
 
   const removeFromCart = (productId) => {
@@ -19,20 +49,20 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const clearCart = () => {
-    setCartItems([]);
+  const updateQuantity = (productId, quantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === productId ? { ...item, quantity } : item,
+      ),
+    );
   };
 
-  const cartTotal = cartItems.reduce((total, item) => total + item.precio, 0);
+  const clearCart = () => setCartItems([]);
 
-  const saveCartToLocalStorage = (cart) => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  };
-
-  const loadCartFromLocalStorage = () => {
-    const cart = localStorage.getItem("cart");
-    return cart ? JSON.parse(cart) : [];
-  };
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.precio * item.quantity,
+    0,
+  );
 
   return (
     <CartContext.Provider
@@ -42,8 +72,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         clearCart,
-        saveCartToLocalStorage,
-        loadCartFromLocalStorage,
+        updateQuantity,
       }}
     >
       {children}

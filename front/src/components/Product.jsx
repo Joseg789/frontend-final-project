@@ -1,9 +1,11 @@
 import { Plus } from "lucide-react";
-import { toast } from "sonner";
+import { useCart } from "../context/cart/CartContext.jsx";
+import { useState } from "react";
 function Product({ product }) {
+  const { addToCart } = useCart();
+  const [title, setTitle] = useState("");
   const handleAddToCart = () => {
-    //alerta con sonner
-    toast.success(`Agregado ${product.nombre} al carrito 🛒`);
+    addToCart(product);
   };
   return (
     <>
@@ -16,11 +18,14 @@ function Product({ product }) {
         <p className="card-talla">Talla: {product.talla}</p>
         <p className="card-precio">{product.precio}€</p>
         <button
-          className="card-add-btn"
+          className="card-btn"
           onClick={handleAddToCart}
+          //cuanddo haga hover que cambie el + por add
+          onMouseEnter={() => setTitle("Add to Cart")}
+          onMouseOut={() => setTitle("")}
           aria-label={`Agregar ${product.nombre} al carrito`}
         >
-          <Plus className="card-add" />
+          {title || <Plus />}
         </button>
       </div>
     </>
