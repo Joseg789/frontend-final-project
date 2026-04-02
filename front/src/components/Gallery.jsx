@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import "./gallery.css";
 
-("https://images.unsplash.com/photo-1726441205310-69282da4d13c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-
 const images = [
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1543508282-6319a3e2621f?q=80&w=715&auto=format&fit=crop&ixlib=rb-4.1.0",
+    src: "https://res.cloudinary.com/djtg09pf6/image/upload/v1775132353/photo-1543508282-6319a3e2621f_ycixq9.jpg",
     title: "Winter Essentials",
   },
   {
@@ -16,7 +14,7 @@ const images = [
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552",
+    src: "https://res.cloudinary.com/djtg09pf6/image/upload/v1775132670/photo-1542291026-7eec264c27ff_cumkd9.jpg",
     title: "Outdoor Ready",
   },
   {

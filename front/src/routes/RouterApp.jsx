@@ -22,6 +22,7 @@ import Cart from "../pages/Cart";
 import { Toaster } from "sonner";
 import GenderProducts from "../pages/GenderProducts";
 import Footer from "../components/Footer";
+import Register from "../pages/Register";
 
 function RouterApp() {
   const { products } = useProducts();
@@ -69,6 +70,7 @@ function RouterApp() {
           </Route>
           <Route path="/logout" element={<Logout />}></Route>
           <Route path="/crear" element={<ProductForm />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
         {/* Footer fijo abajo */}
         <Footer />

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,35 +12,23 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/login",
+        "http://localhost:4000/api/auth/register",
         data,
       );
-      toast.success("Inicio de Sesion Correcto");
-      navigate("/");
+      toast.success("Usuario Registrado correctamente");
+      navigate((to = "/login"));
+      //   console.log("Respuesta:", response.data);
 
       // ejemplo: guardar token
       // localStorage.setItem("token", response.data.token);
-      const usuario =
-        response.data.role === "admin"
-          ? { email: data.email, isAdmin: true }
-          : {
-              email: response.data.user.email,
-              id: response.data.user.id,
-              isAdmin: false,
-            };
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
-      toast.error(
-        `Error al iniciar sesión: ${
-          error.response?.data?.message || error.message
-        }`,
-      );
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Accede a tu cuenta</h2>
+      <h2>Unete a Nuestra Comunidad</h2>
 
       <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -49,18 +37,14 @@ function Login() {
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" required />
 
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Registrar</button>
       </form>
 
-      <Link to="/forgot-password">
-        <p>¿Olvidaste tu contraseña?</p>
+      <Link to="/login">
+        <p>¿ya tienes cuenta?</p>
       </Link>
-
-      <p>
-        ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
-      </p>
     </div>
   );
 }
 
-export default Login;
+export default Register;
