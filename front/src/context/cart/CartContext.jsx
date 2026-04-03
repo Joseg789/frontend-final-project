@@ -6,14 +6,12 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const loadCartFromLocalStorage = () => {
+  const [cartItems, setCartItems] = useState(() => {
     const cart = localStorage.getItem("cart");
     return cart ? JSON.parse(cart) : [];
-  };
+  });
 
-  const [cartItems, setCartItems] = useState(loadCartFromLocalStorage());
-
-  // ✅ Sync automático con localStorage
+  //  Sync automático con localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
@@ -63,12 +61,16 @@ export const CartProvider = ({ children }) => {
     (total, item) => total + item.precio * item.quantity,
     0,
   );
+  //cantidad de productos
+
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <CartContext.Provider
       value={{
         cartItems,
         cartTotal,
+        totalItems,
         addToCart,
         removeFromCart,
         clearCart,
