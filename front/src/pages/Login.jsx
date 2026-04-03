@@ -1,11 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import { useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
@@ -16,7 +21,6 @@ function Login() {
         data,
       );
       toast.success("Inicio de Sesion Correcto");
-      navigate("/");
 
       // ejemplo: guardar token
       // localStorage.setItem("token", response.data.token);
@@ -28,13 +32,13 @@ function Login() {
               id: response.data.user.id,
               isAdmin: false,
             };
+      localStorage.setItem("usuario", usuario);
+      navigate("/");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
-      toast.error(
-        `Error al iniciar sesión: ${
-          error.response?.data?.message || error.message
-        }`,
-      );
+      toast.error("Email o contraseña incorrectos");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,12 +53,14 @@ function Login() {
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" name="password" required />
 
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Cargando..." : "Iniciar sesión"}
+        </button>
       </form>
 
-      <Link to="/forgot-password">
-        <p>¿Olvidaste tu contraseña?</p>
-      </Link>
+      <p>
+        <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
+      </p>
 
       <p>
         ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>

@@ -3,26 +3,25 @@ import { useState } from "react";
 import Logo from "./Logo";
 import CartIcon from "./icons/CartIcon";
 import SearchIcon from "./icons/SearchIcon";
+const adminLinks = ["productos", "admin/Editar", "crear", "admin"];
+
+const userLinks = [
+  "productos",
+  "categoria/camisetas",
+  "categoria/pantalones",
+  "categoria/zapatos",
+  "categoria/accesorios",
+  "hombre",
+  "mujer",
+];
+
+//  elegimos qué links usar
 
 function Navbar({ admin = false }) {
+  const currentLinks = admin ? adminLinks : userLinks;
   const [searchInput, setSearchInput] = useState("");
   const [activeLink, setActiveLink] = useState("");
   const navigate = useNavigate();
-
-  const adminLinks = ["productos", "admin/Editar", "crear", "admin"];
-
-  const userLinks = [
-    "productos",
-    "categoria/camisetas",
-    "categoria/pantalones",
-    "categoria/zapatos",
-    "categoria/accesorios",
-    "hombre",
-    "mujer",
-  ];
-
-  //  elegimos qué links usar
-  const currentLinks = admin ? adminLinks : userLinks;
 
   // Función búsqueda
   const handleSearch = (e) => {
