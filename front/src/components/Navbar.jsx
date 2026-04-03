@@ -4,6 +4,8 @@ import Logo from "./Logo";
 import CartIcon from "./icons/CartIcon";
 import SearchIcon from "./icons/SearchIcon";
 import { useAuth } from "../context/auth/AuthContext";
+import { useCart } from "../context/cart/CartContext";
+import { User } from "lucide-react";
 
 const adminLinks = ["productos", "admin/editar", "admin/crear", "admin"];
 const userLinks = [
@@ -23,6 +25,7 @@ const getLabel = (path) => {
 
 function Navbar() {
   const { user, logout } = useAuth();
+  const { totalItems } = useCart();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchInput, setSearchInput] = useState("");
@@ -38,9 +41,8 @@ function Navbar() {
     }
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
+  const handlePerfil = () => {
+    navigate("/profile");
   };
 
   return (
@@ -86,8 +88,8 @@ function Navbar() {
       {/* Acciones */}
       <div className="navbar-actions">
         {user ? (
-          <button className="links btn-logout" onClick={handleLogout}>
-            Logout
+          <button className="links btn-logout" onClick={handlePerfil}>
+            <User />
           </button>
         ) : (
           <Link className="links" to="/login">
@@ -97,8 +99,13 @@ function Navbar() {
       </div>
 
       {/* Carrito */}
-      <Link to="/cart" className="cart-icon">
+      <Link to="/cart" className="cart-icon cart-wrapper">
         <CartIcon />
+        {totalItems > 0 && (
+          <span className="cart-badge">
+            {totalItems > 99 ? "99+" : totalItems}
+          </span>
+        )}
       </Link>
     </nav>
   );

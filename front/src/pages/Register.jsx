@@ -41,7 +41,7 @@ function Register() {
       </form>
 
       <Link to="/login">
-        <p>¿ya tienes cuenta?</p>
+        <p>¿ya tienes cuenta? Iniciar sesion</p>
       </Link>
     </div>
   );

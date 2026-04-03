@@ -408,7 +408,7 @@ body {
   cursor: pointer;
   color: #b91717;
 }
-/* underline Zara */
+
 .links::after {
   content: "";
   position: absolute;
@@ -427,6 +427,28 @@ body {
 
 .links:hover::after {
   width: 100%;
+}
+
+.cart-wrapper {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #b91717;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 500;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
 }
 
 /* ====== TITLES ====== */

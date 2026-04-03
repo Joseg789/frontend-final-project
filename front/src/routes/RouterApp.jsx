@@ -23,6 +23,8 @@ import GenderProducts from "../pages/GenderProducts";
 import Footer from "../components/Footer";
 import Register from "../pages/Register";
 import { useAuth } from "../context/auth/AuthContext";
+import Profile from "../pages/Profile";
+import NotFound from "../pages/NotFound";
 
 function RouterApp() {
   const { loading } = useAuth();
@@ -46,19 +48,20 @@ function RouterApp() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {/* Rutas protegidas — usuario logueado */}
-          <Route
-            path="/cart"
-            element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/cart" element={<Cart />} />
           <Route
             path="/logout"
             element={
               <ProtectedRoute>
                 <Logout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
@@ -95,6 +98,7 @@ function RouterApp() {
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
       </Router>
