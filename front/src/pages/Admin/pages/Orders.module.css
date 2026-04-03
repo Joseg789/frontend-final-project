@@ -1,0 +1,500 @@
+.wrap {
+  padding: 1.5rem;
+}
+
+.loading {
+  padding: 3rem;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  max-width: 320px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.searchInput {
+  height: 36px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 12px 0 32px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #999;
+}
+
+.filterSelect {
+  height: 36px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 13px;
+  background: #fafafa;
+  color: #555;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* Tabla */
+.tableWrapper {
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #fafafa;
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.thRight {
+  text-align: right;
+}
+
+.td {
+  padding: 12px 16px;
+  color: #111;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.table tbody tr:last-child .td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: #fafafa;
+}
+
+.tdMuted {
+  color: #888;
+  font-size: 12px;
+}
+
+.tdRight {
+  text-align: right;
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Order ID */
+.orderId {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  font-family: monospace;
+}
+
+.orderDate {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* User email */
+.userEmail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #2c2c2a;
+  color: #d3d1c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Items preview */
+.itemsPreview {
+  font-size: 12px;
+  color: #555;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status badges */
+.statusBadge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.statusPendiente {
+  background: #faeeda;
+  color: #854f0b;
+}
+.statusProcesando {
+  background: #e6f1fb;
+  color: #185fa5;
+}
+.statusEnviado {
+  background: #eeedfe;
+  color: #534ab7;
+}
+.statusEntregado {
+  background: #eaf3de;
+  color: #3b6d11;
+}
+.statusCancelado {
+  background: #fcebeb;
+  color: #a32d2d;
+}
+
+/* Total */
+.total {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.btnIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.btnIcon:hover {
+  background: #f5f5f5;
+}
+.btnIconDanger {
+  color: #a32d2d;
+}
+.btnIconDanger:hover {
+  background: #fff0f0;
+}
+.btnIconInfo {
+  color: #185fa5;
+}
+.btnIconInfo:hover {
+  background: #e6f1fb;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.footerCount {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Buttons */
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #2c2c2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: 8px 16px;
+  background: transparent;
+  color: #555;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnSecondary:hover {
+  background: #f5f5f5;
+}
+
+.btnDanger {
+  padding: 8px 16px;
+  background: #a32d2d;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btnDanger:hover {
+  opacity: 0.85;
+}
+.btnDanger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modalCard {
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid #e0e0e0;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalCardLg {
+  max-width: 600px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.modalHeader h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.modalClose:hover {
+  color: #000;
+  background: #f5f5f5;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 1.25rem;
+}
+
+.modalText {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Form fields */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.5px;
+}
+
+.field input,
+.field select {
+  height: 36px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* Items en modal detalle */
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 1rem 0 0.5rem;
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.itemRow:last-child {
+  border-bottom: none;
+}
+
+.itemName {
+  color: #111;
+}
+.itemQty {
+  color: #888;
+  font-size: 12px;
+}
+.itemPrice {
+  font-weight: 500;
+  color: #111;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.detailField {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.detailLabel {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detailValue {
+  font-size: 13px;
+  color: #111;
+}

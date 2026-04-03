@@ -1,0 +1,291 @@
+.wrap {
+  padding: 1.5rem;
+}
+
+.loading {
+  padding: 3rem;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.rangeTabs {
+  display: flex;
+  gap: 4px;
+  background: #f5f5f5;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.rangeTab {
+  padding: 5px 14px;
+  font-size: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #888;
+  transition: all 0.15s;
+}
+
+.rangeTabActive {
+  background: #fff;
+  color: #000;
+  font-weight: 500;
+  border: 0.5px solid #e0e0e0;
+}
+
+/* KPI grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.kpiCard {
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 0.5px solid #e0e0e0;
+  background: #fff;
+  position: relative;
+}
+
+.kpiIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-green .kpiIcon {
+  background: #eaf3de;
+  color: #3b6d11;
+}
+.kpi-blue .kpiIcon {
+  background: #e6f1fb;
+  color: #185fa5;
+}
+.kpi-purple .kpiIcon {
+  background: #eeedfe;
+  color: #534ab7;
+}
+.kpi-amber .kpiIcon {
+  background: #faeeda;
+  color: #854f0b;
+}
+
+.kpiLabel {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 4px;
+}
+
+.kpiValue {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+  color: #111;
+}
+
+.kpiTrend {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.trendUp {
+  color: #3b6d11;
+}
+.trendDown {
+  color: #a32d2d;
+}
+
+/* Charts row */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.chartCard {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.chartTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+/* Bottom row */
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.empty {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* Top productos */
+.topRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.topRow:last-child {
+  margin-bottom: 0;
+}
+
+.topRank {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  min-width: 16px;
+}
+
+.topInfo {
+  flex: 1;
+}
+
+.topMeta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.topName {
+  font-size: 13px;
+  color: #111;
+}
+
+.topCount {
+  font-size: 12px;
+  color: #888;
+}
+
+.progressBg {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #2c2c2a;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* Pedidos recientes */
+.orderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.orderRow:last-child {
+  border-bottom: none;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.orderId {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+}
+
+.orderDate {
+  font-size: 11px;
+  color: #888;
+}
+
+.orderRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderTotal {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* Status badges */
+.statusBadge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.statusDelivered {
+  background: #eaf3de;
+  color: #3b6d11;
+}
+.statusPending {
+  background: #faeeda;
+  color: #854f0b;
+}
+.statusCancelled {
+  background: #fcebeb;
+  color: #a32d2d;
+}

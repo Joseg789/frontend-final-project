@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/auth/AuthContext";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
 const NAV_ITEMS = [
   { id: "datos", label: "Mis datos" },
@@ -11,65 +14,64 @@ const NAV_ITEMS = [
   { id: "seguridad", label: "Seguridad" },
 ];
 
-const ORDERS = [
-  {
-    nombre: "Chaqueta Impermeable Trail",
-    numero: "#48271",
-    fecha: "12 mar 2025",
-    estado: "Entregado",
-    precio: "189,95€",
-    entregado: true,
-    img: "https://images.unsplash.com/photo-1721745848080-3ed6f21e7ba8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hhcXVldGElMjBpbXBlcm1lYWJsZSUyMHRyYWlsfGVufDB8fDB8fHww",
-  },
-  {
-    nombre: "Botas Trekking Summit",
-    numero: "#48104",
-    fecha: "28 feb 2025",
-    estado: "En camino",
-    precio: "229,00€",
-    entregado: false,
-    img: "https://images.unsplash.com/photo-1588585952982-9d062c9f39ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Qm90YXMlMjBUcmVra2luZ3xlbnwwfHwwfHx8MA%3D%3D",
-  },
-  {
-    nombre: "Mochila 30L Alpine",
-    numero: "#47890",
-    fecha: "5 ene 2025",
-    estado: "Entregado",
-    precio: "95,50€",
-    entregado: true,
-    img: "https://images.unsplash.com/photo-1509762774605-f07235a08f1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8TW9jaGlsYXxlbnwwfHwwfHx8MA%3D%3D",
-  },
-];
-
 const WISHLIST = [
   {
     nombre: "Fleece Summit Pro",
     precio: "149,95€",
-    img: "https://images.unsplash.com/photo-1611417833111-284ac6508488?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmxlZWNlfGVufDB8fDB8fHww",
+    img: "https://images.unsplash.com/photo-1611417833111-284ac6508488?w=500&auto=format&fit=crop&q=60",
   },
   {
     nombre: "Pantalón Softshell",
     precio: "119,00€",
-    img: "https://images.unsplash.com/photo-1734519241406-a84e29bbffc8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UGFudGFsJUMzJUIzbiUyMFNvZnRzaGVsbHxlbnwwfHwwfHx8MA%3D%3D",
+    img: "https://images.unsplash.com/photo-1734519241406-a84e29bbffc8?w=500&auto=format&fit=crop&q=60",
   },
   {
     nombre: "Gorro Merino",
     precio: "39,95€",
-    img: "https://images.unsplash.com/photo-1644611390368-6b948e96dbea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Z29ycm8lMjBtZXJpbm98ZW58MHx8MHx8fDA%3D",
+    img: "https://images.unsplash.com/photo-1644611390368-6b948e96dbea?w=500&auto=format&fit=crop&q=60",
   },
 ];
+
+const statusClass = {
+  entregado: styles.statusDelivered,
+  enviado: styles.statusTransit,
+  pendiente: styles.statusTransit,
+  procesando: styles.statusTransit,
+  cancelado: styles.statusCancelled,
+};
 
 export default function Profile() {
   const { user, logout } = useAuth();
   const [activeSection, setActiveSection] = useState("datos");
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
   const navigate = useNavigate();
+
+  const initials = user?.email ? user.email.slice(0, 2).toUpperCase() : "AM";
+
+  // cargar pedidos reales al entrar en la sección
+  useEffect(() => {
+    if (activeSection !== "pedidos") return;
+    const fetchOrders = async () => {
+      try {
+        setLoadingOrders(true);
+        const res = await axios.get(`${API_URL}orders/me`, {
+          withCredentials: true,
+        });
+        setOrders(res.data);
+      } catch {
+        setOrders([]);
+      } finally {
+        setLoadingOrders(false);
+      }
+    };
+    fetchOrders();
+  }, [activeSection]);
 
   const handleLogout = async () => {
     await logout();
     navigate("/login");
   };
-
-  const initials = user?.email ? user.email.slice(0, 2).toUpperCase() : "AM";
 
   return (
     <div className={styles.wrap}>
@@ -96,10 +98,7 @@ export default function Profile() {
               {item.label}
             </div>
           ))}
-
-          {/* separador */}
           <div className={styles.navDivider} />
-
           <button className={styles.logoutBtn} onClick={handleLogout}>
             <svg
               width="16"
@@ -147,35 +146,41 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Pedidos */}
+          {/* Pedidos reales */}
           {activeSection === "pedidos" && (
             <div className={styles.card}>
               <p className={styles.sectionTitle}>Historial de pedidos</p>
-              {ORDERS.map((order) => (
-                <div key={order.numero} className={styles.orderRow}>
-                  <img
-                    src={order.img}
-                    alt=" chaqueta"
-                    className={styles.orderImg}
-                  />
-                  <div className={styles.orderInfo}>
-                    <p>{order.nombre}</p>
-                    <span>
-                      Pedido {order.numero} · {order.fecha}
+              {loadingOrders ? (
+                <p className={styles.empty}>Cargando pedidos...</p>
+              ) : orders.length === 0 ? (
+                <p className={styles.empty}>No tienes pedidos aún</p>
+              ) : (
+                orders.map((order) => (
+                  <div key={order._id} className={styles.orderRow}>
+                    <div className={styles.orderImgPlaceholder} />
+                    <div className={styles.orderInfo}>
+                      <p>
+                        {order.items?.[0]?.nombre || "Pedido"}
+                        {order.items?.length > 1
+                          ? ` +${order.items.length - 1}`
+                          : ""}
+                      </p>
+                      <span>
+                        Pedido #{order._id?.slice(-6).toUpperCase()} ·{" "}
+                        {new Date(order.createdAt).toLocaleDateString("es-ES")}
+                      </span>
+                    </div>
+                    <span
+                      className={`${styles.statusBase} ${statusClass[order.estado] || styles.statusTransit}`}
+                    >
+                      {order.estado}
                     </span>
+                    <div className={styles.orderPrice}>
+                      {(order.total || 0).toFixed(2)}€
+                    </div>
                   </div>
-                  <span
-                    className={
-                      order.entregado
-                        ? styles.statusDelivered
-                        : styles.statusTransit
-                    }
-                  >
-                    {order.estado}
-                  </span>
-                  <div className={styles.orderPrice}>{order.precio}</div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           )}
 
