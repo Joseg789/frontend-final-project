@@ -2,10 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useAuth } from "../context/auth/AuthContext";
+
+const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
 function Login() {
   const navigate = useNavigate();
-
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -16,23 +19,21 @@ function Login() {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/login",
-        data,
-      );
-      toast.success("Inicio de Sesion Correcto");
+      const response = await axios.post(`${API_URL}auth/login`, data, {
+        withCredentials: true,
+      });
 
-      // ejemplo: guardar token
-      // localStorage.setItem("token", response.data.token);
       const usuario =
         response.data.role === "admin"
-          ? { email: data.email, isAdmin: true }
+          ? { email: data.email, role: "admin" }
           : {
               email: response.data.user.email,
               id: response.data.user.id,
-              isAdmin: false,
+              role: "user",
             };
-      localStorage.setItem("usuario", usuario);
+
+      login(usuario);
+      toast.success("Inicio de sesión correcto");
       navigate("/");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);

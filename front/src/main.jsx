@@ -4,13 +4,16 @@ import "./index.css";
 import { ProductsProvider } from "./context/ProductsContext.jsx";
 import RouterApp from "./routes/RouterApp.jsx";
 import { CartProvider } from "./context/cart/CartContext.jsx";
+import { AuthProvider } from "./context/auth/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ProductsProvider>
-      <CartProvider>
-        <RouterApp />
-      </CartProvider>
-    </ProductsProvider>
+    <AuthProvider>
+      <ProductsProvider>
+        <CartProvider>
+          <RouterApp />
+        </CartProvider>
+      </ProductsProvider>
+    </AuthProvider>
   </StrictMode>,
 );

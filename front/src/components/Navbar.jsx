@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import Logo from "./Logo";
 import CartIcon from "./icons/CartIcon";
 import SearchIcon from "./icons/SearchIcon";
-const adminLinks = ["productos", "admin/Editar", "crear", "admin"];
+import { useAuth } from "../context/auth/AuthContext";
 
+const adminLinks = ["productos", "admin/editar", "admin/crear", "admin"];
 const userLinks = [
   "productos",
   "categoria/camisetas",
@@ -15,29 +16,38 @@ const userLinks = [
   "mujer",
 ];
 
-//  elegimos qué links usar
+const getLabel = (path) => {
+  const segment = path.split("/").at(-1);
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
+};
 
-function Navbar({ admin = false }) {
-  const currentLinks = admin ? adminLinks : userLinks;
-  const [searchInput, setSearchInput] = useState("");
-  const [activeLink, setActiveLink] = useState("");
+function Navbar() {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [searchInput, setSearchInput] = useState("");
 
-  // Función búsqueda
+  const currentLinks = user?.role === "admin" ? adminLinks : userLinks;
+
   const handleSearch = (e) => {
     e.preventDefault();
     const query = searchInput.trim();
     if (query) {
-      navigate(`/search/${encodeURIComponent(query)}`); // redirige a la página de resultados encodeURIComponent para manejar caracteres especiales
+      navigate(`/search/${encodeURIComponent(query)}`);
       setSearchInput("");
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
   };
 
   return (
     <nav className="navbar">
       {/* Logo */}
       <div className="navbar-logo">
-        <Link to="/" onClick={() => setActiveLink("")}>
+        <Link to="/">
           <Logo className="logo" />
         </Link>
       </div>
@@ -47,14 +57,10 @@ function Navbar({ admin = false }) {
         {currentLinks.map((l) => (
           <Link
             key={l}
-            className={` links ${activeLink === l ? "active" : ""}`}
+            className={`links ${pathname === `/${l}` ? "active" : ""}`}
             to={`/${l.toLowerCase()}`}
-            onClick={() => setActiveLink(l)}
           >
-            {l.split("/").slice(-1)[0].charAt(0).toUpperCase() +
-              l.split("/").slice(-1)[0].slice(1)}{" "}
-            {l === "admin" ? "Dashboard" : ""}
-            {/* Capitaliza el último segmento del path */}
+            {getLabel(l)} {l === "admin" ? "Dashboard" : ""}
           </Link>
         ))}
       </div>
@@ -79,13 +85,10 @@ function Navbar({ admin = false }) {
 
       {/* Acciones */}
       <div className="navbar-actions">
-        {admin ? (
-          <form
-            action="https://backend-final-project-h156.onrender.com/auth/logout"
-            method="POST"
-          >
-            <input type="submit" className="links btn-logout" value="Logout" />
-          </form>
+        {user ? (
+          <button className="links btn-logout" onClick={handleLogout}>
+            Logout
+          </button>
         ) : (
           <Link className="links" to="/login">
             Login

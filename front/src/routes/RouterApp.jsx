@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "../App";
 import Navbar from "../components/Navbar";
 import SearchResults from "../search/SearchResult";
-import { useProducts } from "../context/ProductsContext";
 import Nosotros from "../components/Nosotros";
 import Category from "../components/Category";
 import Logout from "../pages/Logout";
@@ -23,35 +22,63 @@ import { Toaster } from "sonner";
 import GenderProducts from "../pages/GenderProducts";
 import Footer from "../components/Footer";
 import Register from "../pages/Register";
+import { useAuth } from "../context/auth/AuthContext";
 
 function RouterApp() {
-  const { products } = useProducts();
+  const { loading } = useAuth();
+
+  if (loading) return <div>Cargando...</div>;
+
   return (
     <>
       <Toaster position="top-right" duration={1500} closeButton richColors />
       <Router>
-        <Navbar admin={false} />
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/productos" element={<App />}></Route>
-          <Route
-            path="/search/:query"
-            element={<SearchResults products={products} />}
-          />
+          {/* Rutas públicas */}
+          <Route path="/" element={<Home />} />
+          <Route path="/productos" element={<App />} />
+          <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/categoria/:category" element={<Category />} />
+          <Route path="/hombre" element={<GenderProducts gender="hombre" />} />
+          <Route path="/mujer" element={<GenderProducts gender="mujer" />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {/* Rutas protegidas — usuario logueado */}
           <Route
-            path="/hombre"
-            element={<GenderProducts gender="hombre" />}
-          ></Route>
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
           <Route
-            path="/mujer"
-            element={<GenderProducts gender="mujer" />}
-          ></Route>
-          <Route path="/nosotros" element={<Nosotros />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
-          {/* rutas protegidas con auth */}
-
+            path="/logout"
+            element={
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            }
+          />
+          {/* Rutas protegidas — solo admin */}
+          <Route
+            path="/admin/crear"
+            element={
+              <ProtectedRoute esAdmin={true}>
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          />{" "}
+          <Route
+            path="/admin/editar"
+            element={
+              <ProtectedRoute esAdmin={true}>
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin"
             element={
@@ -68,11 +95,7 @@ function RouterApp() {
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
           </Route>
-          <Route path="/logout" element={<Logout />}></Route>
-          <Route path="/crear" element={<ProductForm />}></Route>
-          <Route path="/register" element={<Register />}></Route>
         </Routes>
-        {/* Footer fijo abajo */}
         <Footer />
       </Router>
     </>
