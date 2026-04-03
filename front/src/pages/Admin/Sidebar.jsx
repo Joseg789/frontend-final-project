@@ -9,12 +9,14 @@ import {
   Settings,
   HelpCircle,
   ChevronLeft,
+  Plus,
 } from "lucide-react";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
   { icon: BarChart3, label: "Analytics", path: "/admin/analytics" },
   { icon: UsersIcon, label: "Users", path: "/admin/users" },
+  { icon: Plus, label: "Create Product", path: "/admin/crear" },
   { icon: ShoppingCart, label: "Ordenes", path: "/admin/orders" },
   { icon: FileText, label: "Reportes", path: "/admin/reports" },
   { icon: Bell, label: "Notificationes", path: "/admin/notifications" },

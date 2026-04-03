@@ -67,22 +67,6 @@ function RouterApp() {
           />
           {/* Rutas protegidas — solo admin */}
           <Route
-            path="/admin/crear"
-            element={
-              <ProtectedRoute esAdmin={true}>
-                <ProductForm />
-              </ProtectedRoute>
-            }
-          />{" "}
-          <Route
-            path="/admin/editar"
-            element={
-              <ProtectedRoute esAdmin={true}>
-                <ProductForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/admin"
             element={
               <ProtectedRoute esAdmin={true}>
@@ -90,6 +74,7 @@ function RouterApp() {
               </ProtectedRoute>
             }
           >
+            <Route path="/admin/crear" element={<ProductForm />} />{" "}
             <Route path="analytics" element={<Analytics />} />
             <Route path="users" element={<Users />} />
             <Route path="orders" element={<Orders />} />
@@ -97,6 +82,7 @@ function RouterApp() {
             <Route path="notifications" element={<Notifications />} />
             <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Help />} />
+            <Route path="/admin/editar" element={<ProductForm />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

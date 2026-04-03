@@ -37,63 +37,73 @@ function ProductForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <input type="text" name="nombre" placeholder="nombre" required />
-      <input type="text" name="precio" placeholder="precio" required />
-      <input
-        type="text"
-        name="descripcion"
-        placeholder="descripcion"
-        required
-      />
-      <div className="botones-grupo">
-        <span className="grupo-label">Genero:</span>
-        {generos.map((g) => (
-          <button
-            key={g}
-            type="button"
-            className={`toggle-btn ${genero === g ? "active" : ""}`}
-            onClick={() => SetGenero(g)}
-          >
-            {g}
-          </button>
-        ))}
-      </div>
+    <>
+      <h2
+        style={{
+          textAlign: "center",
+          textTransform: "uppercase",
+        }}
+      >
+        Crear Un Nuevo Producto
+      </h2>
+      <form onSubmit={handleSubmit} className="form-container">
+        <input type="text" name="nombre" placeholder="nombre" required />
+        <input type="text" name="precio" placeholder="precio" required />
+        <input
+          type="text"
+          name="descripcion"
+          placeholder="descripcion"
+          required
+        />
+        <div className="botones-grupo">
+          <span className="grupo-label">Genero:</span>
+          {generos.map((g) => (
+            <button
+              key={g}
+              type="button"
+              className={`toggle-btn ${genero === g ? "active" : ""}`}
+              onClick={() => SetGenero(g)}
+            >
+              {g}
+            </button>
+          ))}
+        </div>
 
-      {/* Botones para Tallas */}
-      <div className="botones-grupo">
-        <span className="grupo-label">Talla:</span>
-        {tallas.map((t) => (
-          <button
-            key={t}
-            type="button"
-            className={`toggle-btn ${talla === t ? "active" : ""}`}
-            onClick={() => setTalla(t)}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+        {/* Botones para Tallas */}
+        <div className="botones-grupo">
+          <span className="grupo-label">Talla:</span>
+          {tallas.map((t) => (
+            <button
+              key={t}
+              type="button"
+              className={`toggle-btn ${talla === t ? "active" : ""}`}
+              onClick={() => setTalla(t)}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
 
-      {/* Botones para Categorías */}
-      <div className="botones-grupo">
-        <span className="grupo-label">Categoría:</span>
-        {categorias.map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`toggle-btn ${categoria === c ? "active" : ""}`}
-            onClick={() => setCategoria(c)}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
+        {/* Botones para Categorías */}
+        <div className="botones-grupo">
+          <span className="grupo-label">Categoría:</span>
+          {categorias.map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={`toggle-btn ${categoria === c ? "active" : ""}`}
+              onClick={() => setCategoria(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
 
-      <input type="file" name="imagen" />
+        <input type="file" name="imagen" />
 
-      <button type="submit">Enviar</button>
-    </form>
+        <button type="submit">Enviar</button>
+      </form>
+    </>
   );
 }
 
