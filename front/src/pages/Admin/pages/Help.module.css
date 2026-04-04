@@ -1,0 +1,434 @@
+.wrap {
+  padding: 1.5rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Search */
+.searchWrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+  max-width: 480px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.searchInput {
+  width: 100%;
+  height: 42px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 16px 0 38px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* Layout */
+.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.5rem;
+}
+
+/* Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 0.5px solid transparent;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+
+.navItem:hover {
+  background: #f5f5f5;
+  color: #000;
+}
+
+.navItemActive {
+  background: #fff;
+  border-color: #e0e0e0;
+  color: #000;
+  font-weight: 500;
+}
+
+.navDivider {
+  height: 0.5px;
+  background: #e0e0e0;
+  margin: 8px 0;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+/* FAQ */
+.faqItem {
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.faqQuestion {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 14px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: color 0.15s;
+}
+
+.faqQuestion:hover {
+  color: #555;
+}
+
+.faqIcon {
+  flex-shrink: 0;
+  color: #888;
+  transition: transform 0.2s;
+}
+
+.faqIconOpen {
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+  padding-bottom: 14px;
+  padding-right: 24px;
+}
+
+/* Guides */
+.guideGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.guideCard {
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.guideCard:hover {
+  border-color: #999;
+  background: #fafafa;
+}
+
+.guideIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.guideInfo {
+  flex: 1;
+}
+
+.guideTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+}
+
+.guideDesc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.guideBadge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: 500;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.badgeNew {
+  background: #eaf3de;
+  color: #3b6d11;
+}
+.badgePopular {
+  background: #e6f1fb;
+  color: #185fa5;
+}
+.badgeBasic {
+  background: #f5f5f5;
+  color: #555;
+}
+
+/* Contact */
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.contactCard {
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.contactCard:hover {
+  border-color: #999;
+  background: #fafafa;
+}
+
+.contactIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.contactTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.contactDesc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.contactTime {
+  font-size: 11px;
+  color: #888;
+  margin-top: 8px;
+}
+
+/* Shortcuts */
+.shortcutRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.shortcutRow:last-child {
+  border-bottom: none;
+}
+
+.shortcutLabel {
+  color: #555;
+}
+
+.shortcutKeys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kbd {
+  background: #f5f5f5;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-family: monospace;
+  color: #333;
+}
+
+/* Status */
+.statusRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.statusRow:last-child {
+  border-bottom: none;
+}
+
+.statusLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dotGreen {
+  background: #3b6d11;
+}
+.dotAmber {
+  background: #854f0b;
+}
+.dotRed {
+  background: #a32d2d;
+}
+
+.statusName {
+  font-size: 13px;
+  color: #111;
+}
+.statusVal {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Empty */
+.empty {
+  text-align: center;
+  padding: 2rem 0;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Btn */
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #2c2c2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 1rem;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.formField label {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.5px;
+}
+
+.formField input,
+.formField select,
+.formField textarea {
+  height: 36px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formField textarea {
+  height: 100px;
+  padding: 10px 12px;
+  resize: vertical;
+}
+
+.formField input:focus,
+.formField select:focus,
+.formField textarea:focus {
+  outline: none;
+  border-color: #999;
+}

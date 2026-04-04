@@ -19,6 +19,7 @@ function Register() {
       navigate("/login");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
+      toast.error("Error en Registro de Usuario por favor intente de nuevo");
     }
   };
 
