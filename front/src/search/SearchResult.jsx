@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom";
 import Product from "../components/Product";
+import { useProducts } from "../context/ProductsContext";
 
-function SearchResults({ products }) {
+function SearchResults() {
   const { query } = useParams(); //consulta
+  const { products } = useProducts();
   const searchTerm = query ? query.toLowerCase().trim() : "noTerm";
 
   const filteredProducts =

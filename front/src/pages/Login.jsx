@@ -32,7 +32,7 @@ function Login() {
               role: "user",
             };
 
-      login(usuario);
+      login(usuario); //guardo
       toast.success("Inicio de sesión correcto");
       navigate("/");
     } catch (error) {

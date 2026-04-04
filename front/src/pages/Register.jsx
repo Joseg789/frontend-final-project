@@ -16,11 +16,7 @@ function Register() {
         data,
       );
       toast.success("Usuario Registrado correctamente");
-      navigate((to = "/login"));
-      //   console.log("Respuesta:", response.data);
-
-      // ejemplo: guardar token
-      // localStorage.setItem("token", response.data.token);
+      navigate("/login");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     }

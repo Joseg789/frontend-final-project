@@ -1,0 +1,319 @@
+.wrap {
+  padding: 1.5rem;
+}
+
+.loading {
+  padding: 3rem;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Range tabs */
+.rangeTabs {
+  display: flex;
+  gap: 4px;
+  background: #f5f5f5;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.rangeTab {
+  padding: 5px 14px;
+  font-size: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #888;
+  transition: all 0.15s;
+}
+
+.rangeTabActive {
+  background: #fff;
+  color: #000;
+  font-weight: 500;
+  border: 0.5px solid #e0e0e0;
+}
+
+/* Export button */
+.btnExport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: transparent;
+  color: #555;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnExport:hover {
+  background: #f5f5f5;
+}
+
+/* KPI grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.kpiCard {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+
+.kpiLabel {
+  font-size: 12px;
+  color: #888;
+  margin: 0 0 6px;
+  letter-spacing: 0.3px;
+}
+
+.kpiValue {
+  font-size: 24px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.kpiSub {
+  font-size: 11px;
+  color: #888;
+  margin: 0;
+}
+
+.kpiTrend {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.trendUp {
+  color: #3b6d11;
+}
+.trendDown {
+  color: #a32d2d;
+}
+
+/* Charts */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.chartCard {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.chartCard.full {
+  grid-column: 1 / -1;
+}
+
+.chartTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+/* Bottom grid */
+.bottomRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Report rows */
+.reportRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+  font-size: 13px;
+}
+
+.reportRow:last-child {
+  border-bottom: none;
+}
+
+.reportLabel {
+  color: #111;
+}
+.reportValue {
+  font-weight: 500;
+  color: #111;
+}
+.reportMuted {
+  color: #888;
+  font-size: 12px;
+}
+
+/* Progress bar */
+.progressWrap {
+  margin-bottom: 14px;
+}
+
+.progressWrap:last-child {
+  margin-bottom: 0;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.progressName {
+  font-size: 13px;
+  color: #111;
+}
+.progressValue {
+  font-size: 12px;
+  color: #888;
+}
+
+.progressBg {
+  height: 5px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #2c2c2a;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.progressFillGreen {
+  background: #3b6d11;
+}
+.progressFillAmber {
+  background: #854f0b;
+}
+.progressFillRed {
+  background: #a32d2d;
+}
+.progressFillBlue {
+  background: #185fa5;
+}
+.progressFillPurple {
+  background: #534ab7;
+}
+
+/* Status summary */
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.statusRow:last-child {
+  border-bottom: none;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusInfo {
+  flex: 1;
+}
+.statusName {
+  font-size: 13px;
+  color: #111;
+}
+.statusCount {
+  font-size: 11px;
+  color: #888;
+}
+.statusPct {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Badge */
+.badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.badgeGreen {
+  background: #eaf3de;
+  color: #3b6d11;
+}
+.badgeAmber {
+  background: #faeeda;
+  color: #854f0b;
+}
+.badgeRed {
+  background: #fcebeb;
+  color: #a32d2d;
+}
+.badgeBlue {
+  background: #e6f1fb;
+  color: #185fa5;
+}
+
+/* Empty */
+.empty {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  padding: 1.5rem 0;
+}
