@@ -168,7 +168,7 @@ const SYSTEM_STATUS = [
     name: "Rate limiting",
     status: "activo",
     dot: "dotGreen",
-    val: "100 req/15min",
+    val: "2000 req/15min",
   },
   { name: "CORS", status: "configurado", dot: "dotGreen", val: "2 orígenes" },
 ];
