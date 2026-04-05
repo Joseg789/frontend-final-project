@@ -373,3 +373,170 @@
   border-radius: 8px;
   flex-shrink: 0;
 }
+
+/* Modal overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modalCard {
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid #e0e0e0;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.modalTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+}
+
+.modalDate {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.modalClose:hover {
+  background: #f5f5f5;
+  color: #000;
+}
+
+.modalSection {
+  padding: 1rem 1.5rem;
+  border-bottom: 0.5px solid #f0f0f0;
+}
+
+.modalSection:last-child {
+  border-bottom: none;
+}
+
+.modalSectionTitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+/* Items */
+.modalItemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 0.5px solid #f5f5f5;
+}
+
+.modalItemRow:last-child {
+  border-bottom: none;
+}
+
+.modalItemImg {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.modalItemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.modalItemName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modalItemMeta {
+  font-size: 11px;
+  color: #888;
+  margin: 0;
+}
+
+.modalItemPrice {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+}
+
+/* Dirección */
+.modalAddr {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Totales */
+.modalTotalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.modalDivider {
+  height: 0.5px;
+  background: #f0f0f0;
+  margin: 8px 0;
+}
+
+.modalTotalFinal {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* Order row hover */
+.orderRow {
+  transition: background 0.15s;
+}
+
+.orderRow:hover {
+  background: #fafafa;
+  border-radius: 8px;
+}

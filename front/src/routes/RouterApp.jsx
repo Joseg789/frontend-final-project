@@ -25,6 +25,8 @@ import Register from "../pages/Register";
 import { useAuth } from "../context/auth/AuthContext";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
+import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
+import Checkout from "../pages/Checkout/Checkout";
 
 function RouterApp() {
   const { loading } = useAuth();
@@ -65,6 +67,24 @@ function RouterApp() {
               </ProtectedRoute>
             }
           />
+          {/* CHECKOUT */}
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout/success"
+            element={
+              <ProtectedRoute>
+                <CheckoutSuccess />
+              </ProtectedRoute>
+            }
+          />
+
           {/* Rutas protegidas — solo admin */}
           <Route
             path="/admin"

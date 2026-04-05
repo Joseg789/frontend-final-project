@@ -16,7 +16,6 @@ import styles from "./Notifications.module.css";
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
-// tipos de notificación
 const TYPES = {
   order: {
     icon: ShoppingBag,
@@ -56,19 +55,22 @@ const TYPES = {
   },
 };
 
+// ✅ fix NaN — valida la fecha antes de operar
 const timeAgo = (date) => {
-  const diff = Math.floor((Date.now() - new Date(date)) / 1000);
+  if (!date) return "—";
+  const parsed = new Date(date);
+  if (isNaN(parsed.getTime())) return "—";
+  const diff = Math.floor((Date.now() - parsed.getTime()) / 1000);
+  if (diff < 0) return "Ahora mismo";
   if (diff < 60) return "Ahora mismo";
   if (diff < 3600) return `Hace ${Math.floor(diff / 60)} min`;
   if (diff < 86400) return `Hace ${Math.floor(diff / 3600)}h`;
   return `Hace ${Math.floor(diff / 86400)}d`;
 };
 
-// genera notificaciones a partir de órdenes y usuarios reales
 const buildNotifications = (orders, users) => {
   const notifs = [];
 
-  // órdenes recientes
   [...orders]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5)
@@ -79,7 +81,7 @@ const buildNotifications = (orders, users) => {
           type: "order",
           title: "Nuevo pedido recibido",
           message: `Pedido #${order._id?.slice(-6).toUpperCase()} de ${order.user?.email || "cliente"} por ${(order.total || 0).toFixed(2)}€`,
-          date: order.createdAt,
+          date: order.createdAt || null,
           read: false,
         });
       }
@@ -89,13 +91,12 @@ const buildNotifications = (orders, users) => {
           type: "warning",
           title: "Pedido cancelado",
           message: `El pedido #${order._id?.slice(-6).toUpperCase()} ha sido cancelado`,
-          date: order.createdAt,
+          date: order.createdAt || null,
           read: false,
         });
       }
     });
 
-  // usuarios recientes
   [...users]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3)
@@ -105,12 +106,11 @@ const buildNotifications = (orders, users) => {
         type: "user",
         title: "Nuevo usuario registrado",
         message: `${user.email} se ha registrado en la plataforma`,
-        date: user.createdAt,
+        date: user.createdAt || null,
         read: true,
       });
     });
 
-  // notificaciones del sistema estáticas
   notifs.push(
     {
       id: "sys-1",
@@ -118,7 +118,7 @@ const buildNotifications = (orders, users) => {
       title: "Backup completado",
       message:
         "El backup automático de la base de datos se completó correctamente",
-      date: new Date(Date.now() - 1000 * 60 * 60 * 3),
+      date: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
       read: true,
     },
     {
@@ -126,7 +126,7 @@ const buildNotifications = (orders, users) => {
       type: "info",
       title: "Actualización disponible",
       message: "Hay una nueva versión del panel de administración disponible",
-      date: new Date(Date.now() - 1000 * 60 * 60 * 24),
+      date: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
       read: true,
     },
   );
@@ -134,9 +134,16 @@ const buildNotifications = (orders, users) => {
   return notifs.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
+const TABS = (unreadCount) => [
+  { id: "todas", label: "Todas" },
+  { id: "noLeidas", label: "No leídas", count: unreadCount },
+  { id: "order", label: "Pedidos" },
+  { id: "user", label: "Usuarios" },
+  { id: "warning", label: "Alertas" },
+  { id: "system", label: "Sistema" },
+];
+
 export default function Notifications() {
-  const [orders, setOrders] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("todas");
   const [notifs, setNotifs] = useState([]);
@@ -145,15 +152,13 @@ export default function Notifications() {
     const fetchData = async () => {
       try {
         setLoading(true);
+        //obtengo las ordenes y usuarios
         const [ordersRes, usersRes] = await Promise.all([
           axios.get(`${API_URL}orders`, { withCredentials: true }),
           axios.get(`${API_URL}auth/users`, { withCredentials: true }),
         ]);
-        setOrders(ordersRes.data);
-        setUsers(usersRes.data);
         setNotifs(buildNotifications(ordersRes.data, usersRes.data));
       } catch {
-        // si falla el backend usamos notificaciones de demo
         setNotifs(buildNotifications([], []));
       } finally {
         setLoading(false);
@@ -170,32 +175,18 @@ export default function Notifications() {
     return n.type === tab;
   });
 
-  const markAsRead = (id) => {
+  //marco como leido
+  const markAsRead = (id) =>
     setNotifs((prev) =>
       prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
     );
-  };
-
-  const markAllRead = () => {
+  //marco todas leidas
+  const markAllRead = () =>
     setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
-  };
-
-  const deleteNotif = (id) => {
+  // eliminamos la notificacion
+  const deleteNotif = (id) =>
     setNotifs((prev) => prev.filter((n) => n.id !== id));
-  };
-
-  const deleteAll = () => {
-    setNotifs([]);
-  };
-
-  const TABS = [
-    { id: "todas", label: "Todas" },
-    { id: "noLeidas", label: "No leídas", count: unreadCount },
-    { id: "order", label: "Pedidos" },
-    { id: "user", label: "Usuarios" },
-    { id: "warning", label: "Alertas" },
-    { id: "system", label: "Sistema" },
-  ];
+  const deleteAll = () => setNotifs([]);
 
   return (
     <div className={styles.wrap}>
@@ -221,7 +212,7 @@ export default function Notifications() {
         className={styles.tabs}
         style={{ marginBottom: "1.25rem", flexWrap: "wrap" }}
       >
-        {TABS.map((t) => (
+        {TABS(unreadCount).map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
@@ -253,12 +244,10 @@ export default function Notifications() {
                 key={notif.id}
                 className={`${styles.notifCard} ${!notif.read ? styles.unread : ""}`}
               >
-                {/* Icono */}
                 <div className={`${styles.iconWrap} ${typeConfig.iconClass}`}>
                   <Icon size={16} />
                 </div>
 
-                {/* Contenido */}
                 <div className={styles.content}>
                   <div className={styles.contentTop}>
                     <p className={styles.title}>{notif.title}</p>
@@ -272,7 +261,6 @@ export default function Notifications() {
                   </div>
                 </div>
 
-                {/* Acciones */}
                 <div className={styles.notifActions}>
                   {!notif.read && (
                     <button
@@ -292,7 +280,6 @@ export default function Notifications() {
                   </button>
                 </div>
 
-                {/* Punto no leído */}
                 {!notif.read && <div className={styles.unreadDot} />}
               </div>
             );
@@ -305,7 +292,7 @@ export default function Notifications() {
         <div className={styles.footer}>
           <p className={styles.footerCount}>
             {filtered.length} notificacion{filtered.length !== 1 ? "es" : ""}
-            {tab === "noLeidas" && ` sin leer`}
+            {tab === "noLeidas" && " sin leer"}
           </p>
         </div>
       )}

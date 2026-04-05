@@ -3,6 +3,7 @@ import { useAuth } from "../context/auth/AuthContext";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { X } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
@@ -44,17 +45,17 @@ export default function Profile() {
   const { user, logout } = useAuth();
   const [activeSection, setActiveSection] = useState("datos");
   const [orders, setOrders] = useState([]);
-  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState(null); // orden seleccionada para modal
   const navigate = useNavigate();
 
   const initials = user?.email ? user.email.slice(0, 2).toUpperCase() : "AM";
 
-  // cargar pedidos reales al entrar en la sección
   useEffect(() => {
     if (activeSection !== "pedidos") return;
     const fetchOrders = async () => {
       try {
-        setLoadingOrders(true);
+        setLoading(true);
         const res = await axios.get(`${API_URL}orders/me`, {
           withCredentials: true,
         });
@@ -62,7 +63,7 @@ export default function Profile() {
       } catch {
         setOrders([]);
       } finally {
-        setLoadingOrders(false);
+        setLoading(false);
       }
     };
     fetchOrders();
@@ -146,23 +147,28 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Pedidos reales */}
+          {/* Pedidos */}
           {activeSection === "pedidos" && (
             <div className={styles.card}>
               <p className={styles.sectionTitle}>Historial de pedidos</p>
-              {loadingOrders ? (
+              {loading ? (
                 <p className={styles.empty}>Cargando pedidos...</p>
               ) : orders.length === 0 ? (
                 <p className={styles.empty}>No tienes pedidos aún</p>
               ) : (
                 orders.map((order) => (
-                  <div key={order._id} className={styles.orderRow}>
+                  <div
+                    key={order._id}
+                    className={styles.orderRow}
+                    onClick={() => setSelected(order)}
+                    style={{ cursor: "pointer" }}
+                  >
                     <div className={styles.orderImgPlaceholder} />
                     <div className={styles.orderInfo}>
                       <p>
                         {order.items?.[0]?.nombre || "Pedido"}
                         {order.items?.length > 1
-                          ? ` +${order.items.length - 1}`
+                          ? ` +${order.items.length - 1} Productos`
                           : ""}
                       </p>
                       <span>
@@ -265,6 +271,129 @@ export default function Profile() {
               <SaveButton label="Actualizar contraseña" />
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Modal detalle pedido */}
+      {selected && (
+        <OrderModal order={selected} onClose={() => setSelected(null)} />
+      )}
+    </div>
+  );
+}
+
+function OrderModal({ order, onClose }) {
+  const shipping = (order.total || 0) >= 50 ? 0 : 4.99;
+
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className={styles.modalHeader}>
+          <div>
+            <h3 className={styles.modalTitle}>
+              Pedido #{order._id?.slice(-6).toUpperCase()}
+            </h3>
+            <p className={styles.modalDate}>
+              {new Date(order.createdAt).toLocaleDateString("es-ES", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </div>
+          <button onClick={onClose} className={styles.modalClose}>
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Estado */}
+        <div className={styles.modalSection}>
+          <p className={styles.modalSectionTitle}>Estado</p>
+          <span
+            className={`${styles.statusBase} ${
+              order.estado === "entregado"
+                ? styles.statusDelivered
+                : order.estado === "cancelado"
+                  ? styles.statusCancelled
+                  : styles.statusTransit
+            }`}
+          >
+            {order.estado || "pendiente"}
+          </span>
+        </div>
+
+        {/* Productos */}
+        <div className={styles.modalSection}>
+          <p className={styles.modalSectionTitle}>
+            Productos ({order.items?.length || 0})
+          </p>
+          {order.items?.length === 0 ? (
+            <p className={styles.empty}>Sin productos</p>
+          ) : (
+            order.items?.map((item, i) => (
+              <div key={i} className={styles.modalItemRow}>
+                {item.imagen && (
+                  <img
+                    src={item.imagen}
+                    alt={item.nombre}
+                    className={styles.modalItemImg}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
+                )}
+                <div className={styles.modalItemInfo}>
+                  <p className={styles.modalItemName}>{item.nombre}</p>
+                  {item.categoria && (
+                    <p className={styles.modalItemMeta}>{item.categoria}</p>
+                  )}
+                </div>
+                <div style={{ textAlign: "right", flexShrink: 0 }}>
+                  <p className={styles.modalItemPrice}>
+                    {(item.precio * item.quantity).toFixed(2)}€
+                  </p>
+                  <p className={styles.modalItemMeta}>
+                    x{item.quantity} · {item.precio.toFixed(2)}€/ud
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Dirección */}
+        {order.direccion?.calle && (
+          <div className={styles.modalSection}>
+            <p className={styles.modalSectionTitle}>Dirección de envío</p>
+            <p className={styles.modalAddr}>
+              {order.direccion.calle}
+              <br />
+              {order.direccion.codigoPostal} {order.direccion.ciudad}
+              <br />
+              {order.direccion.pais}
+            </p>
+          </div>
+        )}
+
+        {/* Resumen de precio */}
+        <div className={styles.modalSection}>
+          <p className={styles.modalSectionTitle}>Resumen</p>
+          <div className={styles.modalTotalRow}>
+            <span>Subtotal</span>
+            <span>{(order.total || 0).toFixed(2)}€</span>
+          </div>
+          <div className={styles.modalTotalRow}>
+            <span>Envío</span>
+            <span style={{ color: shipping === 0 ? "#3B6D11" : "#111" }}>
+              {shipping === 0 ? "Gratis" : "4,99€"}
+            </span>
+          </div>
+          <div className={styles.modalDivider} />
+          <div className={`${styles.modalTotalRow} ${styles.modalTotalFinal}`}>
+            <span>Total</span>
+            <span>{((order.total || 0) + shipping).toFixed(2)}€</span>
+          </div>
         </div>
       </div>
     </div>

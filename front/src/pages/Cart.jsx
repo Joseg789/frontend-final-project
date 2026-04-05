@@ -12,8 +12,10 @@ import {
 import { useCart } from "../context/cart/CartContext";
 import { toast } from "sonner";
 import Hero from "../components/hero/Hero";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const { cartItems, cartTotal: subtotal, clearCart } = useCart();
   const [discount, setDiscount] = useState("");
   const [discountValue, setDiscountValue] = useState(0);
@@ -81,24 +83,20 @@ export default function Cart() {
                 />
                 <button onClick={applyDiscount}>Aplicar</button>
               </div>
-
               <div className="summary-row">
                 <span>Subtotal</span>
                 <span>{subtotal}€</span>
               </div>
-
               <div className="summary-row">
                 <span>Descuento</span>
                 <span>-{discountAmount.toFixed(2)}€</span>
               </div>
-
               <div className="summary-row">
                 <span>
                   <Truck size={16} /> Envío
                 </span>
                 <span>{shipping === 0 ? "Gratis" : `${shipping}€`}</span>
               </div>
-
               <div className="summary-total">
                 <span>Total</span>
                 <span>{total.toFixed(2)}€</span>
@@ -107,14 +105,18 @@ export default function Cart() {
                 <h2>Resumen de pedido</h2>
                 <h3> ({cartItems.length} Artículos)</h3>
               </div>
-
               {/* BOTONES */}
-              <button className="checkout-btn">
+              <button
+                className="checkout-btn"
+                onClick={() => navigate("/checkout")}
+              >
                 <CreditCard size={18} />
                 Pagar
               </button>
-
-              <button className="apple-btn">
+              <button
+                className="apple-btn"
+                onClick={() => navigate("/checkout")}
+              >
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg "
                   alt="Apple Pay"
@@ -122,7 +124,6 @@ export default function Cart() {
                 />
                 Pay
               </button>
-
               {/* SEGURIDAD */}
               <div className="secure-box">
                 <ShieldCheck size={16} />
