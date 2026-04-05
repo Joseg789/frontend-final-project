@@ -34,7 +34,11 @@ function Login() {
 
       login(usuario); //guardo
       toast.success("Inicio de sesión correcto");
-      navigate("/");
+      if (usuario.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       toast.error("Email o contraseña incorrectos");

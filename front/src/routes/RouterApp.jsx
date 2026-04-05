@@ -27,6 +27,7 @@ import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
 import Checkout from "../pages/Checkout/Checkout";
+import ProductsDashboard from "../pages/Admin/pages/ProductsDashboard";
 
 function RouterApp() {
   const { loading } = useAuth();
@@ -94,7 +95,8 @@ function RouterApp() {
               </ProtectedRoute>
             }
           >
-            <Route path="/admin/crear" element={<ProductForm />} />{" "}
+            <Route path="/admin/crear" element={<ProductForm />} />
+            <Route path="/admin/products" element={<ProductsDashboard />} />
             <Route path="analytics" element={<Analytics />} />
             <Route path="users" element={<Users />} />
             <Route path="orders" element={<Orders />} />

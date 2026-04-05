@@ -1,78 +1,106 @@
-import axios from "axios";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
 import { useProducts } from "../context/ProductsContext";
+import { useNavigate } from "react-router-dom";
 
-function ProductForm() {
+const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+const TALLAS = ["S", "M", "L", "XL"];
+const CATEGORIAS = ["Camisetas", "Pantalones", "Accesorios", "Zapatos"];
+const GENEROS = ["Hombre", "Mujer"];
+
+export default function ProductForm() {
   const { products, setProducts } = useProducts();
+  const navigate = useNavigate();
+
   const [talla, setTalla] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [genero, SetGenero] = useState("");
+  const [genero, setGenero] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
 
-  const tallas = ["S", "M", "L", "XL"];
-  const categorias = ["Camisetas", "Pantalones", "Accesorios", "Zapatos"];
-  const generos = ["Hombre", "Mujer"];
+  const handleImgChange = (e) => {
+    const file = e.target.files[0];
+    if (file) setPreview(URL.createObjectURL(file));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!talla) return toast.error("Selecciona una talla");
+    if (!categoria) return toast.error("Selecciona una categoría");
+    if (!genero) return toast.error("Selecciona un género");
+
     const formData = new FormData(e.target);
-    formData.set("talla", talla); // agregamos la talla
-    formData.set("categoria", categoria); // agregamos la categoría
-    formData.set("genero", genero); // agregamos el genero
+    formData.set("talla", talla);
+    formData.set("categoria", categoria);
+    formData.set("genero", genero);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/products",
-        formData,
-      );
+      setLoading(true);
+      const response = await axios.post(`${API_URL}products`, formData, {
+        withCredentials: true,
+      });
       const newProduct = response.data.data;
       setProducts([...products, newProduct]);
+      toast.success("Producto creado correctamente");
       e.target.reset();
       setTalla("");
       setCategoria("");
-      SetGenero("");
+      setGenero("");
+      setPreview(null);
+      navigate("/admin/products");
     } catch (error) {
-      console.log({ error });
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Error al crear el producto",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <h2
-        style={{
-          textAlign: "center",
-          textTransform: "uppercase",
-        }}
-      >
+      <h2 style={{ textAlign: "center", textTransform: "uppercase" }}>
         Crear Un Nuevo Producto
       </h2>
+
       <form onSubmit={handleSubmit} className="form-container">
         <input type="text" name="nombre" placeholder="nombre" required />
-        <input type="text" name="precio" placeholder="precio" required />
+        <input
+          type="number"
+          name="precio"
+          placeholder="precio"
+          step="0.01"
+          required
+        />
         <input
           type="text"
           name="descripcion"
           placeholder="descripcion"
           required
         />
+
+        {/* Género */}
         <div className="botones-grupo">
           <span className="grupo-label">Genero:</span>
-          {generos.map((g) => (
+          {GENEROS.map((g) => (
             <button
               key={g}
               type="button"
               className={`toggle-btn ${genero === g ? "active" : ""}`}
-              onClick={() => SetGenero(g)}
+              onClick={() => setGenero(g)}
             >
               {g}
             </button>
           ))}
         </div>
 
-        {/* Botones para Tallas */}
+        {/* Tallas */}
         <div className="botones-grupo">
           <span className="grupo-label">Talla:</span>
-          {tallas.map((t) => (
+          {TALLAS.map((t) => (
             <button
               key={t}
               type="button"
@@ -84,10 +112,10 @@ function ProductForm() {
           ))}
         </div>
 
-        {/* Botones para Categorías */}
+        {/* Categorías */}
         <div className="botones-grupo">
           <span className="grupo-label">Categoría:</span>
-          {categorias.map((c) => (
+          {CATEGORIAS.map((c) => (
             <button
               key={c}
               type="button"
@@ -99,12 +127,32 @@ function ProductForm() {
           ))}
         </div>
 
-        <input type="file" name="imagen" />
+        {/* Imagen */}
+        <input
+          type="file"
+          name="imagen"
+          accept="image/*"
+          onChange={handleImgChange}
+        />
+        {preview && (
+          <img
+            src={preview}
+            alt="Preview"
+            style={{
+              width: "100%",
+              height: 180,
+              objectFit: "cover",
+              borderRadius: 8,
+              marginTop: 8,
+              border: "0.5px solid #e0e0e0",
+            }}
+          />
+        )}
 
-        <button type="submit">Enviar</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Creando..." : "Enviar"}
+        </button>
       </form>
     </>
   );
 }
-
-export default ProductForm;
