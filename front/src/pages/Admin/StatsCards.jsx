@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Users, DollarSign, ShoppingCart, TrendingUp } from "lucide-react";
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+import api from "../../api";
 
 export const StatsCards = () => {
   const [orders, setOrders] = useState([]);
@@ -12,13 +10,13 @@ export const StatsCards = () => {
     const fetchData = async () => {
       try {
         const [ordersRes, usersRes] = await Promise.all([
-          axios.get(`${API_URL}orders`, { withCredentials: true }),
-          axios.get(`${API_URL}auth/users`, { withCredentials: true }),
+          api.get("orders"),
+          api.get("auth/users"),
         ]);
         setOrders(ordersRes.data);
         setUsers(usersRes.data);
       } catch {
-        // silencioso — el dashboard padre ya maneja errores
+        //  dashboard padre ya maneja errores
       }
     };
     fetchData();

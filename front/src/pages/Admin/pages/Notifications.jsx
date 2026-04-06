@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import {
   ShoppingBag,
   Users,
@@ -14,7 +13,7 @@ import {
 } from "lucide-react";
 import styles from "./Notifications.module.css";
 
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+import api from "../../../api";
 
 const TYPES = {
   order: {
@@ -55,7 +54,7 @@ const TYPES = {
   },
 };
 
-// ✅ fix NaN — valida la fecha antes de operar
+// fix NaN — valida la fecha antes de operar
 const timeAgo = (date) => {
   if (!date) return "—";
   const parsed = new Date(date);
@@ -154,8 +153,8 @@ export default function Notifications() {
         setLoading(true);
         //obtengo las ordenes y usuarios
         const [ordersRes, usersRes] = await Promise.all([
-          axios.get(`${API_URL}orders`, { withCredentials: true }),
-          axios.get(`${API_URL}auth/users`, { withCredentials: true }),
+          api.get("orders"),
+          api.get("auth/users"),
         ]);
         setNotifs(buildNotifications(ordersRes.data, usersRes.data));
       } catch {

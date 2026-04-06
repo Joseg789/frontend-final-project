@@ -1,10 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useProducts } from "../context/ProductsContext";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 const TALLAS = ["S", "M", "L", "XL"];
 const CATEGORIAS = ["Camisetas", "Pantalones", "Accesorios", "Zapatos"];
 const GENEROS = ["Hombre", "Mujer"];
@@ -38,12 +37,11 @@ export default function ProductForm() {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_URL}products`, formData, {
-        withCredentials: true,
-      });
+      const response = await api.post("products", formData);
       const newProduct = response.data.data;
       setProducts([...products, newProduct]);
       toast.success("Producto creado correctamente");
+      localStorage.removeItem("products"); //invalidamos el cache para recargar los productos
       e.target.reset();
       setTalla("");
       setCategoria("");

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../../context/ProductsContext";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Search, X, Package } from "lucide-react";
@@ -27,6 +28,7 @@ const EMPTY_FORM = {
 
 export default function Products() {
   const { products, getProducts, updateProduct, deleteProduct } = useProducts();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -97,10 +99,8 @@ export default function Products() {
   const handleEdit = async () => {
     if (!form.nombre || !form.precio)
       return toast.error("Nombre y precio son obligatorios");
-
     try {
       setSaving(true);
-
       if (imgFile) {
         const formData = new FormData();
         formData.append("imagen", imgFile);
@@ -117,10 +117,8 @@ export default function Products() {
           precio: parseFloat(form.precio),
         });
       }
-
       toast.success("Producto actualizado");
       closeModal();
-      //  sin getProducts() — el contexto ya actualizó el estado
     } catch (err) {
       toast.error(err.response?.data?.message || "Error al actualizar");
     } finally {
@@ -151,7 +149,7 @@ export default function Products() {
       <div className={styles.header}>
         <h2>Productos</h2>
         <button
-          onClick={() => (window.location.href = "/admin/crear")}
+          onClick={() => navigate("/admin/crear")}
           className={styles.btnPrimary}
         >
           <Plus size={15} /> Nuevo producto
@@ -184,7 +182,7 @@ export default function Products() {
         </select>
       </div>
 
-      {/* Grid */}
+      {/* Lista */}
       <div className={styles.productsList}>
         <div className={styles.listHeader}>
           <div />
@@ -362,7 +360,6 @@ export default function Products() {
               <button onClick={closeModal} className={styles.btnSecondary}>
                 Cancelar
               </button>
-              {/* button guardar */}
               <button
                 onClick={handleEdit}
                 disabled={saving}

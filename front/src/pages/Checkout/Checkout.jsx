@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/cart/CartContext";
-import { useAuth } from "../../context/auth/AuthContext";
 import { toast } from "sonner";
-import axios from "axios";
 import styles from "./Checkout.module.css";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+import api from "../../api";
 
 const EMPTY_ADDR = {
   calle: "",
@@ -21,12 +18,12 @@ export default function Checkout() {
   const [addr, setAddr] = useState(EMPTY_ADDR);
   const [loading, setLoading] = useState(false);
 
-  // ✅ redirige en useEffect, no durante el render
+  //  no interfiere con clearCart
   useEffect(() => {
     if (!cartItems.length) {
-      navigate("/checkout/success");
+      navigate("/cart");
     }
-  }, [cartItems.length]);
+  }, []);
 
   if (!cartItems.length) return null;
 
@@ -39,23 +36,18 @@ export default function Checkout() {
     }
     try {
       setLoading(true);
-      await axios.post(
-        `${API_URL}orders`,
-        {
-          items: cartItems.map((item) => ({
-            producto: item._id,
-            nombre: item.nombre,
-            precio: item.precio,
-            quantity: item.quantity,
-            imagen: item.imagen,
-            categoria: item.categoria,
-            genero: item.genero,
-          })),
-          total: parseFloat(finalTotal),
-          direccion: addr,
-        },
-        { withCredentials: true },
-      );
+      await api.post("orders", {
+        items: cartItems.map((item) => ({
+          nombre: item.nombre,
+          precio: item.precio,
+          quantity: item.quantity,
+          imagen: item.imagen,
+          categoria: item.categoria,
+          genero: item.genero,
+        })),
+        total: parseFloat(finalTotal),
+        direccion: addr,
+      });
       clearCart();
       toast.success("¡Pedido realizado correctamente!");
       navigate("/checkout/success");

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
+import api from "../api";
 
 function Register() {
   const navigate = useNavigate();
@@ -11,10 +11,7 @@ function Register() {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/auth/register",
-        data,
-      );
+      const response = await api.post("auth/register", data);
       toast.success("Usuario Registrado correctamente");
       navigate("/login");
     } catch (error) {

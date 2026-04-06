@@ -1,38 +1,63 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../api";
 
 const AuthContext = createContext();
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // evita flash de contenido
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkSession = async () => {
+    const savedToken = sessionStorage.getItem("token");
+    if (!savedToken) {
+      setLoading(false);
+      return;
+    }
+
+    const verify = async () => {
       try {
-        const res = await axios.get(`${API_URL}auth/me`, {
-          withCredentials: true, //obtengo mi sesion guardada con express
+        const res = await api.get("auth/me", {
+          headers: { Authorization: `Bearer ${savedToken}` },
         });
         setUser(res.data.user);
+        setToken(savedToken);
       } catch {
+        sessionStorage.removeItem("token");
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
-    checkSession();
+    verify();
   }, []);
 
-  const login = (data) => setUser(data);
-
-  const logout = async () => {
-    await axios.post(`${API_URL}auth/logout`, {}, { withCredentials: true });
-    setUser(null);
+  const login = (data) => {
+    setUser(data.user);
+    setToken(data.token);
+    sessionStorage.setItem("token", data.token);
   };
 
+  const logout = async () => {
+    try {
+      //  el interceptor añade el token automáticamente
+      await api.post("auth/logout");
+    } catch {
+    } finally {
+      setUser(null);
+      setToken(null);
+      sessionStorage.removeItem("token");
+    }
+  };
+
+  const authHeader = () => ({
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user, token, login, logout, loading, authHeader }}
+    >
       {children}
     </AuthContext.Provider>
   );

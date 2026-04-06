@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { Pencil, Trash2, Plus, X, Search } from "lucide-react";
 import styles from "./Users.module.css";
+import { useAuth } from "../../../context/auth/AuthContext";
+import api from "../../../api";
 
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 const EMPTY_FORM = { email: "", password: "" };
 
 export default function Users() {
+  const { authHeader } = useAuth();
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -23,9 +24,7 @@ export default function Users() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}auth/users`, {
-        withCredentials: true,
-      });
+      const res = await api.get("auth/users");
       setUsers(res.data);
     } catch {
       toast.error("Error al cargar usuarios");
@@ -66,9 +65,7 @@ export default function Users() {
       return toast.error("Rellena todos los campos");
     try {
       setSaving(true);
-      await axios.post(`${API_URL}auth/register`, form, {
-        withCredentials: true,
-      });
+      await api.post("auth/register", form);
       toast.success("Usuario creado");
       closeModal();
       fetchUsers();
@@ -83,9 +80,7 @@ export default function Users() {
     if (!form.email) return toast.error("El email es obligatorio");
     try {
       setSaving(true);
-      await axios.put(`${API_URL}auth/users/${selected._id}`, form, {
-        withCredentials: true,
-      });
+      await api.put(`auth/users/${selected._id}`, form);
       toast.success("Usuario actualizado");
       closeModal();
       fetchUsers();
@@ -99,9 +94,7 @@ export default function Users() {
   const handleDelete = async () => {
     try {
       setSaving(true);
-      await axios.delete(`${API_URL}auth/users/${selected._id}`, {
-        withCredentials: true,
-      });
+      await api.delete(`auth/users/${selected._id}`);
       toast.success("Usuario eliminado");
       closeModal();
       fetchUsers();

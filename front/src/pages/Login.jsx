@@ -1,10 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useAuth } from "../context/auth/AuthContext";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+import api from "../api";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,26 +17,18 @@ function Login() {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await axios.post(`${API_URL}auth/login`, data, {
-        withCredentials: true,
+      const response = await api.post("auth/login", data);
+
+      login({
+        token: response.data.token,
+        user: response.data.user,
       });
 
-      const usuario =
-        response.data.role === "admin"
-          ? { email: data.email, role: "admin" }
-          : {
-              email: response.data.user.email,
-              id: response.data.user.id,
-              role: "user",
-            };
-
-      login(usuario); //guardo
       toast.success("Inicio de sesión correcto");
-      if (usuario.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+
+      // ✅ lee el rol de la respuesta, no del estado
+      const role = response.data.user?.role;
+      navigate(role === "admin" ? "/admin" : "/");
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       toast.error("Email o contraseña incorrectos");

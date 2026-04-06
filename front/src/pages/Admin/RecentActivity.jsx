@@ -1,4 +1,3 @@
-import React from "react";
 import { UserPlus, ShoppingCart, FileText, AlertCircle } from "lucide-react";
 import "./adminStyles.css";
 

@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/auth/AuthContext";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { X } from "lucide-react";
+import api from "../api";
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
@@ -56,9 +56,7 @@ export default function Profile() {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${API_URL}orders/me`, {
-          withCredentials: true,
-        });
+        const res = await api.get("orders/me");
         setOrders(res.data);
       } catch {
         setOrders([]);

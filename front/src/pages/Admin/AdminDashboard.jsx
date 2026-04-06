@@ -7,8 +7,8 @@ import { TrafficSources } from "./TrafficSources";
 import { PerformanceMetrics } from "./PerformanceMetrics";
 import { RecentActivity } from "./RecentActivity";
 import Chart from "./Chart";
-import axios from "axios";
 import "./adminStyles.css";
+import api from "../../api";
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
@@ -42,9 +42,7 @@ export default function AdminDashboard() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${API_URL}orders`, {
-          withCredentials: true,
-        });
+        const res = await api.get("orders");
         setOrders(res.data);
       } catch {
         setOrders([]);

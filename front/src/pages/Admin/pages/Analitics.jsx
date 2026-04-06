@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import {
   ShoppingBag,
@@ -21,8 +20,8 @@ import {
   Cell,
 } from "recharts";
 import styles from "./Analytics.module.css";
+import api from "../../../api";
 
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 const MONTHS = [
   "Ene",
   "Feb",
@@ -49,8 +48,8 @@ export default function Analytics() {
       try {
         setLoading(true);
         const [ordersRes, usersRes] = await Promise.all([
-          axios.get(`${API_URL}orders`, { withCredentials: true }),
-          axios.get(`${API_URL}auth/users`, { withCredentials: true }),
+          api.get("orders"),
+          api.get("auth/users"),
         ]);
         setOrders(ordersRes.data);
         setUsers(usersRes.data);

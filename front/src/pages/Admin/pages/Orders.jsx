@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../api";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Eye, Search, X } from "lucide-react";
 import styles from "./Orders.module.css";
+import { useAuth } from "../../../context/auth/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
@@ -51,8 +52,8 @@ export default function Orders() {
     try {
       setLoading(true);
       const [ordersRes, usersRes] = await Promise.all([
-        axios.get(`${API_URL}orders`, { withCredentials: true }),
-        axios.get(`${API_URL}auth/users`, { withCredentials: true }),
+        api.get("orders"),
+        api.get("auth/users"),
       ]);
       setOrders(ordersRes.data);
       setUsers(usersRes.data);
@@ -119,7 +120,7 @@ export default function Orders() {
 
     try {
       setSaving(true);
-      await axios.post(
+      await api.post(
         `${API_URL}orders`,
         {
           user: user._id,
@@ -149,7 +150,7 @@ export default function Orders() {
     if (!form.estado) return toast.error("El estado es obligatorio");
     try {
       setSaving(true);
-      await axios.put(
+      await api.put(
         `${API_URL}orders/${selected._id}`,
         {
           estado: form.estado,
@@ -176,7 +177,7 @@ export default function Orders() {
   const handleDelete = async () => {
     try {
       setSaving(true);
-      await axios.delete(`${API_URL}orders/${selected._id}`, {
+      await api.delete(`${API_URL}orders/${selected._id}`, {
         withCredentials: true,
       });
       toast.success("Orden eliminada");
@@ -191,7 +192,7 @@ export default function Orders() {
 
   const handleStatusChange = async (order, estado) => {
     try {
-      await axios.put(
+      await api.put(
         `${API_URL}orders/${order._id}`,
         { estado },
         { withCredentials: true },

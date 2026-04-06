@@ -7,9 +7,7 @@ import {
   Settings as SettingsIcon,
 } from "lucide-react";
 import { useAuth } from "../../context/auth/AuthContext";
-import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
+import api from "../../api";
 
 export const TopBar = () => {
   const { user } = useAuth();
@@ -24,9 +22,7 @@ export const TopBar = () => {
   useEffect(() => {
     const fetchNotifs = async () => {
       try {
-        const [ordersRes] = await Promise.all([
-          axios.get(`${API_URL}orders`, { withCredentials: true }),
-        ]);
+        const [ordersRes] = await Promise.all([api.get("orders")]);
         const orders = ordersRes.data;
         const pending = orders
           .filter((o) => o.estado === "pendiente")
