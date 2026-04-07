@@ -7,7 +7,7 @@ import { useAuth } from "../context/auth/AuthContext";
 import { useCart } from "../context/cart/CartContext";
 import { User } from "lucide-react";
 
-const adminLinks = ["productos", "admin/editar", "admin/crear", "admin"];
+const adminLinks = ["admin/products", "admin/orders", "admin/crear", "admin"];
 const userLinks = [
   "productos",
   "categoria/camisetas",
@@ -24,7 +24,7 @@ const getLabel = (path) => {
 };
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { totalItems } = useCart();
   const navigate = useNavigate();
   const { pathname } = useLocation();
