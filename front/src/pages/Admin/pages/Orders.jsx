@@ -3,9 +3,6 @@ import api from "../../../api";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, Eye, Search, X } from "lucide-react";
 import styles from "./Orders.module.css";
-import { useAuth } from "../../../context/auth/AuthContext";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
 const ESTADOS = [
   "pendiente",
@@ -39,7 +36,7 @@ export default function Orders() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("todos");
-  const [modal, setModal] = useState(null); // null | "create" | "edit" | "delete" | "detail"
+  const [modal, setModal] = useState(null);
   const [selected, setSelected] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
@@ -64,7 +61,6 @@ export default function Orders() {
     }
   };
 
-  // — Filtrado —
   const filtered = orders.filter((o) => {
     const email = o.user?.email?.toLowerCase() || "";
     const id = o._id?.toLowerCase() || "";
@@ -74,13 +70,11 @@ export default function Orders() {
     return matchSearch && matchFilter;
   });
 
-  // — Modales —
   const openCreate = () => {
     setForm(EMPTY_FORM);
     setSelected(null);
     setModal("create");
   };
-
   const openEdit = (order) => {
     setForm({
       userEmail: order.user?.email || "",
@@ -94,48 +88,40 @@ export default function Orders() {
     setSelected(order);
     setModal("edit");
   };
-
   const openDetail = (order) => {
     setSelected(order);
     setModal("detail");
   };
-
   const openDelete = (order) => {
     setSelected(order);
     setModal("delete");
   };
-
   const closeModal = () => {
     setModal(null);
     setSelected(null);
     setForm(EMPTY_FORM);
   };
 
-  // — CRUD —
+  // ✅ api ya tiene baseURL — solo paths relativos, sin withCredentials
   const handleCreate = async () => {
     if (!form.userEmail || !form.total)
       return toast.error("Email y total son obligatorios");
     const user = users.find((u) => u.email === form.userEmail);
     if (!user) return toast.error("Usuario no encontrado");
-
     try {
       setSaving(true);
-      await api.post(
-        `${API_URL}orders`,
-        {
-          user: user._id,
-          items: [],
-          total: parseFloat(form.total),
-          estado: form.estado,
-          direccion: {
-            calle: form.calle,
-            ciudad: form.ciudad,
-            codigoPostal: form.codigoPostal,
-            pais: form.pais,
-          },
+      await api.post("orders", {
+        user: user._id,
+        items: [],
+        total: parseFloat(form.total),
+        estado: form.estado,
+        direccion: {
+          calle: form.calle,
+          ciudad: form.ciudad,
+          codigoPostal: form.codigoPostal,
+          pais: form.pais,
         },
-        { withCredentials: true },
-      );
+      });
       toast.success("Orden creada");
       closeModal();
       fetchData();
@@ -150,20 +136,16 @@ export default function Orders() {
     if (!form.estado) return toast.error("El estado es obligatorio");
     try {
       setSaving(true);
-      await api.put(
-        `${API_URL}orders/${selected._id}`,
-        {
-          estado: form.estado,
-          total: parseFloat(form.total),
-          direccion: {
-            calle: form.calle,
-            ciudad: form.ciudad,
-            codigoPostal: form.codigoPostal,
-            pais: form.pais,
-          },
+      await api.put(`orders/${selected._id}`, {
+        estado: form.estado,
+        total: parseFloat(form.total),
+        direccion: {
+          calle: form.calle,
+          ciudad: form.ciudad,
+          codigoPostal: form.codigoPostal,
+          pais: form.pais,
         },
-        { withCredentials: true },
-      );
+      });
       toast.success("Orden actualizada");
       closeModal();
       fetchData();
@@ -177,9 +159,7 @@ export default function Orders() {
   const handleDelete = async () => {
     try {
       setSaving(true);
-      await api.delete(`${API_URL}orders/${selected._id}`, {
-        withCredentials: true,
-      });
+      await api.delete(`orders/${selected._id}`);
       toast.success("Orden eliminada");
       closeModal();
       fetchData();
@@ -192,11 +172,7 @@ export default function Orders() {
 
   const handleStatusChange = async (order, estado) => {
     try {
-      await api.put(
-        `${API_URL}orders/${order._id}`,
-        { estado },
-        { withCredentials: true },
-      );
+      await api.put(`orders/${order._id}`, { estado });
       toast.success(`Estado actualizado a "${estado}"`);
       fetchData();
     } catch {
@@ -386,7 +362,6 @@ export default function Orders() {
                   </datalist>
                 </div>
               )}
-
               <div className={styles.field}>
                 <label>Estado</label>
                 <select
@@ -400,7 +375,6 @@ export default function Orders() {
                   ))}
                 </select>
               </div>
-
               <div className={styles.field}>
                 <label>Total (€)</label>
                 <input
@@ -411,7 +385,6 @@ export default function Orders() {
                   step="0.01"
                 />
               </div>
-
               <div className={`${styles.field} ${styles.fieldFull}`}>
                 <label>Calle</label>
                 <input
@@ -421,7 +394,6 @@ export default function Orders() {
                   placeholder="Calle Mayor 24"
                 />
               </div>
-
               <div className={styles.field}>
                 <label>Ciudad</label>
                 <input
@@ -431,7 +403,6 @@ export default function Orders() {
                   placeholder="Madrid"
                 />
               </div>
-
               <div className={styles.field}>
                 <label>Código postal</label>
                 <input
@@ -443,7 +414,6 @@ export default function Orders() {
                   placeholder="28013"
                 />
               </div>
-
               <div className={styles.field}>
                 <label>País</label>
                 <input
@@ -485,7 +455,6 @@ export default function Orders() {
                 <X size={18} />
               </button>
             </div>
-
             <div className={styles.detailGrid}>
               <div className={styles.detailField}>
                 <span className={styles.detailLabel}>Cliente</span>
