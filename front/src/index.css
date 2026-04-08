@@ -644,6 +644,57 @@ body {
   font-size: 13px;
 }
 
+/* Cupón preview */
+.coupon-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 10px 0 14px;
+}
+
+.coupon-code {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.coupon-off {
+  font-size: 12px;
+  font-weight: 600;
+  background: #eaf3de;
+  color: #3b6d11;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Newsletter hint */
+.newsletter-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 8px;
+}
+
+/* Estado éxito */
+.newsletter-success {
+  margin-top: 8px;
+}
+
+.newsletter-success-icon {
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+.newsletter-success-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  margin: 0;
+}
+
 .socials a:hover {
   color: #fff;
   transform: scale(1.1);
