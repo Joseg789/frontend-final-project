@@ -1,27 +1,45 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useProducts } from "../context/ProductsContext";
 import Product from "./Product";
+import styles from "../App.module.css";
 
 function Category() {
   const { category } = useParams();
-  const { products } = useProducts();
-  const categoryCap = category[0].toUpperCase() + category.slice(1); //capitalice
-  const filtredProducts = products.filter(
+  const { products, getProducts } = useProducts();
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const categoryCap = category[0].toUpperCase() + category.slice(1);
+  const filteredProducts = products.filter(
     (prod) => prod.categoria === categoryCap,
   );
+
   return (
-    <>
-      <div className="container">
-        <div className="container-products">
-          {filtredProducts &&
-            filtredProducts.map((product) => (
-              <div key={product._id} className="product-card">
-                <Product product={product} />
-              </div>
-            ))}
+    <div className="container">
+      <h2 className={styles.categoryTitle}>
+        {categoryCap}
+        <span className={styles.categoryCount}>
+          ({filteredProducts.length} productos)
+        </span>
+      </h2>
+
+      {filteredProducts.length === 0 ? (
+        <div className={styles.emptyState}>
+          <p className={styles.emptyText}>
+            No hay productos en la categoría {categoryCap}
+          </p>
         </div>
-      </div>
-    </>
+      ) : (
+        <div className={styles.containerProducts}>
+          {filteredProducts.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

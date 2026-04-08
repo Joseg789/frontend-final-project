@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import { useCart } from "../context/cart/CartContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import styles from "../App.module.css";
 
 function Product({ product }) {
   const { addToCart } = useCart();
@@ -9,31 +10,31 @@ function Product({ product }) {
   const [title, setTitle] = useState("");
 
   const handleAddToCart = (e) => {
-    e.stopPropagation(); // evita navegar al hacer click en el botón
+    e.stopPropagation();
     addToCart(product);
   };
 
   return (
     <div
+      className={styles.productCard}
       onClick={() => navigate(`/producto/${product._id}`)}
-      style={{ cursor: "pointer" }}
     >
-      <img src={product.imagen || null} alt={`Imagen de ${product.nombre}`} />
-      <div className="card-body">
-        <span className="card-categoria">{product.categoria ?? ""}</span>
-        <h2 className="card-nombre">{product.nombre}</h2>
-        <p className="card-descripcion">{product.descripcion}</p>
-        <p className="card-descripcion">{product.genero}</p>
-        <p className="card-talla">Talla: {product.talla}</p>
-        <p className="card-precio">{product.precio}€</p>
+      <img src={product.imagen || ""} alt={`Imagen de ${product.nombre}`} />
+      <div className={styles.cardBody}>
+        <span className={styles.cardCategoria}>{product.categoria ?? ""}</span>
+        <h2 className={styles.cardNombre}>{product.nombre}</h2>
+        <p className={styles.cardDescripcion}>{product.descripcion}</p>
+        <p className={styles.cardDescripcion}>{product.genero}</p>
+        <p className={styles.cardTalla}>Talla: {product.talla}</p>
+        <p className={styles.cardPrecio}>{product.precio}€</p>
         <button
-          className="card-btn"
+          className={styles.cardBtn}
           onClick={handleAddToCart}
           onMouseEnter={() => setTitle("Add to Cart")}
           onMouseOut={() => setTitle("")}
           aria-label={`Agregar ${product.nombre} al carrito`}
         >
-          {title || <Plus />}
+          {title || <Plus size={14} />}
         </button>
       </div>
     </div>

@@ -68,7 +68,6 @@ function App() {
 
   const filtered = useMemo(() => {
     let result = [...products];
-
     if (tallasSelected.length > 0)
       result = result.filter((p) => tallasSelected.includes(p.talla));
     if (categoriasSelected.length > 0)
@@ -86,13 +85,13 @@ function App() {
 
     switch (sortBy) {
       case "price-asc":
-        return result.sort((a, b) => a.precio - b.precio);
+        return [...result].sort((a, b) => a.precio - b.precio);
       case "price-desc":
-        return result.sort((a, b) => b.precio - a.precio);
+        return [...result].sort((a, b) => b.precio - a.precio);
       case "name-asc":
-        return result.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        return [...result].sort((a, b) => a.nombre.localeCompare(b.nombre));
       case "name-desc":
-        return result.sort((a, b) => b.nombre.localeCompare(a.nombre));
+        return [...result].sort((a, b) => b.nombre.localeCompare(a.nombre));
       default:
         return result;
     }
@@ -114,7 +113,6 @@ function App() {
           {filtered.length} producto{filtered.length !== 1 ? "s" : ""}
         </p>
         <div className={styles.toolbarRight}>
-          {/* Ordenar */}
           <div className={styles.sortWrapper}>
             <select
               value={sortBy}
@@ -130,7 +128,6 @@ function App() {
             <ChevronDown size={13} className={styles.sortIcon} />
           </div>
 
-          {/* Toggle filtros */}
           <button
             onClick={() => setFiltersOpen((p) => !p)}
             className={`${styles.btnFilters} ${filtersOpen ? styles.btnFiltersActive : ""}`}
@@ -142,7 +139,6 @@ function App() {
             )}
           </button>
 
-          {/* Limpiar */}
           {hasFilters && (
             <button onClick={clearFilters} className={styles.btnClear}>
               <X size={13} /> Limpiar
@@ -164,7 +160,6 @@ function App() {
               />
             ))}
           </FilterGroup>
-
           <FilterGroup label="Talla">
             {TALLAS.map((t) => (
               <FilterBtn
@@ -175,7 +170,6 @@ function App() {
               />
             ))}
           </FilterGroup>
-
           <FilterGroup label="Categoría">
             {CATEGORIAS.map((c) => (
               <FilterBtn
@@ -186,7 +180,6 @@ function App() {
               />
             ))}
           </FilterGroup>
-
           <FilterGroup label="Precio (€)">
             <div className={styles.priceRow}>
               <input
@@ -265,11 +258,9 @@ function App() {
           </button>
         </div>
       ) : (
-        <div className="container-products">
+        <div className={styles.containerProducts}>
           {filtered.map((product) => (
-            <div key={product._id} className="product-card">
-              <Product product={product} />
-            </div>
+            <Product key={product._id} product={product} />
           ))}
         </div>
       )}
