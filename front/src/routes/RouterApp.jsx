@@ -31,6 +31,7 @@ import ProductsDashboard from "../pages/Admin/pages/ProductsDashboard";
 import Spinner from "../components/icons/Spinner";
 import Contact from "../pages/Contact";
 import Shipping from "../pages/Shipping";
+import ProductDetail from "../components/ProductDetail";
 function RouterApp() {
   const { loading } = useAuth();
 
@@ -54,6 +55,7 @@ function RouterApp() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shipping" element={<Shipping />} />
+          <Route path="/producto/:id" element={<ProductDetail />} />
           {/* Rutas protegidas — usuario logueado */}
           <Route path="/cart" element={<Cart />} />
           <Route

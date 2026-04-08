@@ -1,14 +1,23 @@
 import { Plus } from "lucide-react";
 import { useCart } from "../context/cart/CartContext.jsx";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
 function Product({ product }) {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const handleAddToCart = () => {
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // evita navegar al hacer click en el botón
     addToCart(product);
   };
+
   return (
-    <>
+    <div
+      onClick={() => navigate(`/producto/${product._id}`)}
+      style={{ cursor: "pointer" }}
+    >
       <img src={product.imagen || null} alt={`Imagen de ${product.nombre}`} />
       <div className="card-body">
         <span className="card-categoria">{product.categoria ?? ""}</span>
@@ -20,7 +29,6 @@ function Product({ product }) {
         <button
           className="card-btn"
           onClick={handleAddToCart}
-          //cuanddo haga hover que cambie el + por add
           onMouseEnter={() => setTitle("Add to Cart")}
           onMouseOut={() => setTitle("")}
           aria-label={`Agregar ${product.nombre} al carrito`}
@@ -28,7 +36,7 @@ function Product({ product }) {
           {title || <Plus />}
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
