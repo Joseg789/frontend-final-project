@@ -28,11 +28,13 @@ import NotFound from "../pages/NotFound";
 import CheckoutSuccess from "../pages/Checkout/CheckoutSuccess";
 import Checkout from "../pages/Checkout/Checkout";
 import ProductsDashboard from "../pages/Admin/pages/ProductsDashboard";
-
+import Spinner from "../components/icons/Spinner";
+import Contact from "../pages/Contact";
+import Shipping from "../pages/Shipping";
 function RouterApp() {
   const { loading } = useAuth();
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) return <Spinner />;
 
   return (
     <>
@@ -50,6 +52,8 @@ function RouterApp() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/shipping" element={<Shipping />} />
           {/* Rutas protegidas — usuario logueado */}
           <Route path="/cart" element={<Cart />} />
           <Route

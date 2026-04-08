@@ -2,49 +2,49 @@ import { useRef, useState } from "react";
 import "./CarouselMin.css";
 import { data } from "../utils/carouselMin";
 
+const buildSrc = (url, width, quality = 75) =>
+  `${url}?w=${width}&auto=format&fit=crop&q=${quality}`;
+
 export default function Carousel() {
   const ref = useRef(null);
-
   const [isDown, setIsDown] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [dragStartScrollLeft, setDragStartScrollLeft] = useState(0); // ✅ Issue 1
+  const [dragStartScrollLeft, setDragStartScrollLeft] = useState(0);
 
   const scroll = (dir) => {
-    const width = ref.current.offsetWidth;
+    const w = ref.current.offsetWidth;
     ref.current.scrollBy({
-      left: dir === "next" ? width * 0.8 : -width * 0.8,
+      left: dir === "next" ? w * 0.8 : -w * 0.8,
       behavior: "smooth",
     });
   };
 
-  // Mouse events
-  const handleMouseDown = (e) => {
+  // Mouse
+  const onMouseDown = (e) => {
     setIsDown(true);
     setStartX(e.pageX - ref.current.offsetLeft);
-    setDragStartScrollLeft(ref.current.scrollLeft); // ✅ Issue 1
+    setDragStartScrollLeft(ref.current.scrollLeft);
   };
-  const handleMouseLeave = () => setIsDown(false);
-  const handleMouseUp = () => setIsDown(false);
-  const handleMouseMove = (e) => {
+  const onMouseLeave = () => setIsDown(false);
+  const onMouseUp = () => setIsDown(false);
+  const onMouseMove = (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - ref.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    ref.current.scrollLeft = dragStartScrollLeft - walk; // ✅ Issue 1
+    ref.current.scrollLeft = dragStartScrollLeft - (x - startX) * 1.5;
   };
 
-  // Touch events                                         // ✅ Issue 3
-  const handleTouchStart = (e) => {
+  // Touch
+  const onTouchStart = (e) => {
     setIsDown(true);
     setStartX(e.touches[0].pageX - ref.current.offsetLeft);
     setDragStartScrollLeft(ref.current.scrollLeft);
   };
-  const handleTouchEnd = () => setIsDown(false);
-  const handleTouchMove = (e) => {
+  const onTouchEnd = () => setIsDown(false);
+  const onTouchMove = (e) => {
     if (!isDown) return;
     const x = e.touches[0].pageX - ref.current.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    ref.current.scrollLeft = dragStartScrollLeft - walk;
+    ref.current.scrollLeft = dragStartScrollLeft - (x - startX) * 1.5;
   };
 
   return (
@@ -59,20 +59,41 @@ export default function Carousel() {
       <div
         className="sorel-carousel"
         ref={ref}
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        onTouchStart={handleTouchStart} // ✅ Issue 3
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onTouchMove={onTouchMove}
       >
-        {data.map((item) => (
+        {data.map((item, i) => (
           <div className="sorel-carousel-card" key={item.title}>
-            {" "}
-            {/* ✅ Issue 4 */}
-            <img src={item.src} alt={item.title} />
-            <div className="sorel-carousel-overlay"></div>
+            <picture>
+              {/* Cloudinary: f_auto elige WebP/AVIF automáticamente */}
+              <source
+                type="image/webp"
+                srcSet={`
+                  ${buildSrc(item.src, 320, 70)} 320w,
+                  ${buildSrc(item.src, 640, 75)} 640w,
+                  ${buildSrc(item.src, 960, 80)} 960w
+                `}
+                sizes="(max-width: 480px) 320px, (max-width: 768px) 640px, 960px"
+              />
+              <img
+                src={buildSrc(item.src, 640)}
+                srcSet={`
+                  ${buildSrc(item.src, 320, 70)} 320w,
+                  ${buildSrc(item.src, 640, 75)} 640w
+                `}
+                sizes="(max-width: 480px) 320px, 640px"
+                alt={item.title}
+                width={640}
+                height={840}
+                loading={i === 0 ? "eager" : "lazy"} // primera eager, resto lazy
+              />
+            </picture>
+            <div className="sorel-carousel-overlay" />
             <div className="sorel-carousel-content">
               <h2>{item.title}</h2>
               <p>{item.text}</p>

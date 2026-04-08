@@ -1,0 +1,365 @@
+.wrap {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  position: relative;
+  height: 460px;
+  background-image: url("https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=1600&auto=format&fit=crop&q=60");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  padding: 0 1.5rem;
+}
+
+.heroEyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.heroTitle {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.heroDesc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+/* ============================================
+   Info cards
+   ============================================ */
+.infoSection {
+  background: #2c2c2a;
+  padding: 2.5rem 1.5rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.infoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 1rem;
+}
+
+.infoIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.infoTitulo {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px;
+}
+
+.infoLinea {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 2px;
+  line-height: 1.5;
+}
+
+/* ============================================
+   Sección principal
+   ============================================ */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  display: block;
+}
+
+.sectionTitle {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+
+.texto {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ============================================
+   Formulario
+   ============================================ */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 0;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.input {
+  height: 40px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2c2c2a;
+}
+
+.textarea {
+  height: 140px;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  background: #fafafa;
+  color: #000;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #2c2c2a;
+}
+
+.btnSubmit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: #2c2c2a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  width: fit-content;
+}
+
+.btnSubmit:hover {
+  opacity: 0.85;
+}
+.btnSubmit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   Mapa
+   ============================================ */
+.mapaWrap {
+}
+
+.mapa {
+  height: 360px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid #e0e0e0;
+  margin-top: 1.5rem;
+}
+
+/* ============================================
+   CTA
+   ============================================ */
+.cta {
+  background: #f9f9f7;
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.ctaDesc {
+  font-size: 15px;
+  color: #888;
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.ctaBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: #2c2c2a;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.ctaBtnPrimary:hover {
+  opacity: 0.85;
+}
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: #2c2c2a;
+  border: 0.5px solid #2c2c2a;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.ctaBtnSecondary:hover {
+  background: #2c2c2a;
+  color: #fff;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 900px) {
+  .infoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .mapa {
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 380px;
+  }
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 3rem 1rem;
+  }
+  .cta {
+    padding: 3rem 1rem;
+  }
+}

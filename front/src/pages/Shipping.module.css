@@ -1,0 +1,587 @@
+.wrap {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  position: relative;
+  height: 460px;
+  background-image: url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&auto=format&fit=crop&q=60");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  padding: 0 1.5rem;
+}
+
+.heroEyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.heroTitle {
+  font-size: clamp(26px, 5vw, 44px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.heroDesc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+/* ============================================
+   Banner gratis
+   ============================================ */
+.bannerGratis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #2c2c2a;
+  color: #fff;
+  padding: 14px 1.5rem;
+  font-size: 14px;
+}
+
+.bannerGratis p {
+  margin: 0;
+}
+
+/* ============================================
+   Secciones
+   ============================================ */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sectionGray {
+  max-width: 100%;
+  background: #f9f9f7;
+  padding: 5rem 1.5rem;
+}
+
+.sectionGray > * {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+  display: block;
+}
+
+.sectionTitle {
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.texto {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ============================================
+   Opciones de envío
+   ============================================ */
+.opcionesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.opcionCard {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.15s;
+}
+
+.opcionCard:hover {
+  border-color: #999;
+}
+
+.opcionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.opcionIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #2c2c2a;
+  color: #d3d1c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.opcionTitulo {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+}
+
+.opcionPlazo {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.opcionDesc {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.opcionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 0.5px solid #f0f0f0;
+}
+
+.opcionPrecio {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+}
+
+.opcionGratis {
+  font-size: 11px;
+  color: #3b6d11;
+  background: #eaf3de;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+/* ============================================
+   Pasos
+   ============================================ */
+.pasosGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pasoCard {
+  position: relative;
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.pasoNum {
+  font-size: 32px;
+  font-weight: 500;
+  color: #e0e0e0;
+  margin: 0 0 12px;
+  letter-spacing: -1px;
+}
+
+.pasoTitulo {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.pasoDesc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.pasoLinea {
+  position: absolute;
+  top: 2rem;
+  right: -0.75rem;
+  width: 1.5rem;
+  height: 0.5px;
+  background: #e0e0e0;
+  z-index: 1;
+}
+
+/* ============================================
+   Tabla zonas
+   ============================================ */
+.tablaWrap {
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  background: #fafafa;
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.tr {
+  border-bottom: 0.5px solid #f0f0f0;
+}
+.tr:last-child {
+  border-bottom: none;
+}
+.tr:hover {
+  background: #fafafa;
+}
+
+.td {
+  padding: 14px 16px;
+  color: #111;
+  font-size: 14px;
+}
+
+.td:first-child {
+  font-weight: 500;
+}
+
+/* ============================================
+   Devoluciones
+   ============================================ */
+.devolucionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.devolucionSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.devolucionStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.devolucionNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #2c2c2a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.devolucionTexto {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.devolucionImgWrap {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.devolucionImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.devolucionImgWrap:hover .devolucionImg {
+  transform: scale(1.04);
+}
+
+/* ============================================
+   Garantías
+   ============================================ */
+.garantiasGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.garantiaCard {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.garantiaCard:hover {
+  border-color: #999;
+}
+
+.garantiaIcon {
+  color: #2c2c2a;
+  margin-bottom: 12px;
+}
+
+.garantiaTitulo {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.garantiaDesc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   FAQ
+   ============================================ */
+.faqList {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.faqQuestion {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 16px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: color 0.15s;
+}
+
+.faqQuestion:hover {
+  color: #555;
+}
+
+.faqIcon {
+  flex-shrink: 0;
+  color: #888;
+  transition: transform 0.2s;
+}
+
+.faqIconOpen {
+  transform: rotate(180deg);
+}
+
+.faqAnswer {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+  padding-bottom: 16px;
+  padding-right: 24px;
+  margin: 0;
+}
+
+/* ============================================
+   CTA
+   ============================================ */
+.cta {
+  background: #2c2c2a;
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.ctaDesc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.ctaBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: #fff;
+  color: #2c2c2a;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.ctaBtnPrimary:hover {
+  opacity: 0.85;
+}
+
+.ctaBtnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.ctaBtnSecondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 900px) {
+  .opcionesGrid {
+    grid-template-columns: 1fr;
+  }
+  .pasosGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .garantiasGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .devolucionGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .pasoLinea {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 380px;
+  }
+  .pasosGrid {
+    grid-template-columns: 1fr;
+  }
+  .garantiasGrid {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 3rem 1rem;
+  }
+  .cta {
+    padding: 3rem 1rem;
+  }
+}

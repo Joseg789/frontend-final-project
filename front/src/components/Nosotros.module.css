@@ -1,0 +1,377 @@
+.wrap {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  position: relative;
+  height: 560px;
+  background-image: url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&auto=format&fit=crop&q=60");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  padding: 0 1.5rem;
+}
+
+.heroEyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+.heroTitle {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.heroDesc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Stats
+   ============================================ */
+.statsSection {
+  background: #2c2c2a;
+  padding: 2rem 1.5rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.statItem {
+  text-align: center;
+  padding: 1rem;
+}
+
+.statValor {
+  font-size: 32px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 4px;
+  letter-spacing: -1px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* ============================================
+   Secciones
+   ============================================ */
+.section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sectionGray {
+  max-width: 100%;
+  background: #f9f9f7;
+  padding: 5rem 1.5rem;
+}
+
+.sectionGray > * {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+.sectionTitle {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  color: #111;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================
+   Historia
+   ============================================ */
+.historiaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.historiaTexto {
+}
+
+.historiaTexto .eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.historiaTexto .sectionTitle {
+  margin-bottom: 1.5rem;
+}
+
+.texto {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.8;
+  margin: 0 0 1rem;
+}
+
+.texto:last-child {
+  margin-bottom: 0;
+}
+
+.historiaImgWrap {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.historiaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.historiaImgWrap:hover .historiaImg {
+  transform: scale(1.04);
+}
+
+/* ============================================
+   Valores
+   ============================================ */
+.valoresGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.valorCard {
+  background: #fff;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.15s;
+}
+
+.valorCard:hover {
+  border-color: #999;
+}
+
+.valorIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #2c2c2a;
+  color: #d3d1c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.valorTitulo {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.valorDesc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   Equipo
+   ============================================ */
+.equipoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.equipoCard {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid #e0e0e0;
+  transition: border-color 0.15s;
+}
+
+.equipoCard:hover {
+  border-color: #999;
+}
+
+.equipoImgWrap {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.equipoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.equipoCard:hover .equipoImg {
+  transform: scale(1.04);
+}
+
+.equipoInfo {
+  padding: 12px 14px;
+  border-top: 0.5px solid #f0f0f0;
+}
+
+.equipoNombre {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  margin: 0 0 3px;
+}
+
+.equipoRol {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+/* ============================================
+   CTA
+   ============================================ */
+.cta {
+  background: #2c2c2a;
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.ctaDesc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin: 0 0 2rem;
+}
+
+.ctaBtn {
+  display: inline-block;
+  padding: 12px 32px;
+  background: #fff;
+  color: #2c2c2a;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: opacity 0.15s;
+}
+
+.ctaBtn:hover {
+  opacity: 0.85;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .historiaGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .valoresGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .equipoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 420px;
+  }
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .valoresGrid {
+    grid-template-columns: 1fr;
+  }
+  .equipoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .section {
+    padding: 3rem 1rem;
+  }
+}

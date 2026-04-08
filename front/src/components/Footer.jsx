@@ -12,51 +12,33 @@ const Footer = () => {
           <h3>SHOP</h3>
           <ul>
             <li>
-              <Link to="/hombre">Men</Link>
+              <Link to="/hombre">Hombre</Link>
             </li>
             <li>
-              <Link to="/mujer">Women</Link>
-            </li>
-            <li>
-              <Link to="/kids">Kids</Link>
-            </li>
-            <li>
-              <Link to="/sale">Sale</Link>
+              <Link to="/mujer">Mujer</Link>
             </li>
           </ul>
         </div>
 
         {/* Columna 2 */}
         <div className="footer-column">
-          <h3>HELP</h3>
+          <h3>Ayuda</h3>
           <ul>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/contact">Contacto</Link>
             </li>
             <li>
               <Link to="/shipping">Shipping</Link>
-            </li>
-            <li>
-              <Link to="/returns">Returns</Link>
-            </li>
-            <li>
-              <Link to="/faq">FAQ</Link>
             </li>
           </ul>
         </div>
 
         {/* Columna 3 */}
         <div className="footer-column">
-          <h3>ABOUT</h3>
+          <h3>Quienes somos?</h3>
           <ul>
             <li>
-              <Link to="/our-story">Our Story</Link>
-            </li>
-            <li>
-              <Link to="/sustainability">Sustainability</Link>
-            </li>
-            <li>
-              <Link to="/careers">Careers</Link>
+              <Link to="/nosotros">Nuestra Historia</Link>
             </li>
           </ul>
         </div>
@@ -76,17 +58,17 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© 2026 Your Brand. All rights reserved.</p>
         <div className="socials">
-          <a href="#" aria-label="Instagram">
+          <Link to="#" aria-label="Instagram">
             <InstagramIcon />
-          </a>
+          </Link>
 
-          <a href="#" aria-label="Facebook">
+          <Link to="#" aria-label="Facebook">
             <FacebookIcon />
-          </a>
+          </Link>
 
-          <a href="#" aria-label="X">
+          <Link to="#" aria-label="X">
             <XIcon />
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
