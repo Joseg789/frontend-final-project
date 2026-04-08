@@ -3,9 +3,8 @@ import { useAuth } from "../context/auth/AuthContext";
 import styles from "./Profile.module.css";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 import api from "../api";
-
-const API_URL = import.meta.env.VITE_API_URL_BACKEND2;
 
 const NAV_ITEMS = [
   { id: "datos", label: "Mis datos" },
@@ -43,11 +42,18 @@ const statusClass = {
 
 export default function Profile() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const [activeSection, setActiveSection] = useState("datos");
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState(null); // orden seleccionada para modal
-  const navigate = useNavigate();
+  const [selected, setSelected] = useState(null);
+
+  //  estado controlado para seguridad
+  const [passActual, setPassActual] = useState("");
+  const [passNueva, setPassNueva] = useState("");
+  const [passConfirm, setPassConfirm] = useState("");
+  const [savingPass, setSavingPass] = useState(false);
 
   const initials = user?.email ? user.email.slice(0, 2).toUpperCase() : "AM";
 
@@ -70,6 +76,35 @@ export default function Profile() {
   const handleLogout = async () => {
     await logout();
     navigate("/login");
+  };
+
+  // ✅ actualizar contraseña
+  const handleChangePassword = async () => {
+    if (!passActual) return toast.error("Introduce tu contraseña actual");
+    if (passNueva.length < 8)
+      return toast.error(
+        "La nueva contraseña debe tener al menos 8 caracteres",
+      );
+    if (passNueva !== passConfirm)
+      return toast.error("Las contraseñas no coinciden");
+
+    try {
+      setSavingPass(true);
+      await api.put(`auth/users/${user.id}`, {
+        passwordActual: passActual,
+        password: passNueva,
+      });
+      toast.success("Contraseña actualizada correctamente");
+      setPassActual("");
+      setPassNueva("");
+      setPassConfirm("");
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Error al actualizar la contraseña",
+      );
+    } finally {
+      setSavingPass(false);
+    }
   };
 
   return (
@@ -242,31 +277,49 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Seguridad */}
+          {/* Seguridad — ✅ inputs controlados */}
           {activeSection === "seguridad" && (
             <div className={styles.card}>
               <p className={styles.sectionTitle}>Seguridad</p>
               <div className={styles.fieldRow}>
-                <Field
-                  label="Contraseña actual"
-                  type="password"
-                  defaultValue="••••••••"
-                />
+                <div className={styles.field}>
+                  <label>Contraseña actual</label>
+                  <input
+                    type="password"
+                    value={passActual}
+                    onChange={(e) => setPassActual(e.target.value)}
+                    placeholder="Tu contraseña actual"
+                  />
+                </div>
                 <div />
               </div>
               <div className={styles.fieldRow}>
-                <Field
-                  label="Nueva contraseña"
-                  type="password"
-                  placeholder="Mínimo 8 caracteres"
-                />
-                <Field
-                  label="Confirmar contraseña"
-                  type="password"
-                  placeholder="Repite la contraseña"
-                />
+                <div className={styles.field}>
+                  <label>Nueva contraseña</label>
+                  <input
+                    type="password"
+                    value={passNueva}
+                    onChange={(e) => setPassNueva(e.target.value)}
+                    placeholder="Mínimo 8 caracteres"
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label>Confirmar contraseña</label>
+                  <input
+                    type="password"
+                    value={passConfirm}
+                    onChange={(e) => setPassConfirm(e.target.value)}
+                    placeholder="Repite la contraseña"
+                  />
+                </div>
               </div>
-              <SaveButton label="Actualizar contraseña" />
+              <button
+                className={styles.saveBtn}
+                onClick={handleChangePassword}
+                disabled={savingPass}
+              >
+                {savingPass ? "Guardando..." : "Actualizar contraseña"}
+              </button>
             </div>
           )}
         </div>
@@ -286,7 +339,6 @@ function OrderModal({ order, onClose }) {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
         <div className={styles.modalHeader}>
           <div>
             <h3 className={styles.modalTitle}>
@@ -305,7 +357,6 @@ function OrderModal({ order, onClose }) {
           </button>
         </div>
 
-        {/* Estado */}
         <div className={styles.modalSection}>
           <p className={styles.modalSectionTitle}>Estado</p>
           <span
@@ -321,7 +372,6 @@ function OrderModal({ order, onClose }) {
           </span>
         </div>
 
-        {/* Productos */}
         <div className={styles.modalSection}>
           <p className={styles.modalSectionTitle}>
             Productos ({order.items?.length || 0})
@@ -360,7 +410,6 @@ function OrderModal({ order, onClose }) {
           )}
         </div>
 
-        {/* Dirección */}
         {order.direccion?.calle && (
           <div className={styles.modalSection}>
             <p className={styles.modalSectionTitle}>Dirección de envío</p>
@@ -374,7 +423,6 @@ function OrderModal({ order, onClose }) {
           </div>
         )}
 
-        {/* Resumen de precio */}
         <div className={styles.modalSection}>
           <p className={styles.modalSectionTitle}>Resumen</p>
           <div className={styles.modalTotalRow}>
