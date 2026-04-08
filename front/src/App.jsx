@@ -26,6 +26,8 @@ function App() {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
+    //  limpia el caché y fuerza recarga desde la API
+    localStorage.removeItem("products");
     getProducts();
   }, []);
 
