@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useProducts } from "../context/ProductsContext";
 import Product from "../components/Product";
 import Gallery from "../components/Gallery";
@@ -14,7 +14,11 @@ const CATEGORIAS = [
 ];
 
 function GenderProducts({ gender }) {
-  const { products } = useProducts();
+  const { products, getProducts } = useProducts();
+  //  carga los productos si no están cargados
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const [tallasSelected, setTallasSelected] = useState([]);
   const [categoriasSelected, setCategoriasSelected] = useState([]);
