@@ -53,8 +53,8 @@ function RouterApp() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/contacto" element={<Contact />} />
+          <Route path="/envios" element={<Shipping />} />
           <Route path="/producto/:id" element={<ProductDetail />} />
           {/* Rutas protegidas — usuario logueado */}
           <Route path="/cart" element={<Cart />} />

@@ -63,22 +63,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Columna 3 */}
-        <div className="footer-column">
-          <h3>Legal</h3>
-          <ul>
-            <li>
-              <Link to="/privacidad">Privacidad</Link>
-            </li>
-            <li>
-              <Link to="/terminos">Términos</Link>
-            </li>
-            <li>
-              <Link to="/cookies">Cookies</Link>
-            </li>
-          </ul>
-        </div>
-
         {/* Newsletter */}
         <div className="footer-column newsletter">
           <h3>Únete</h3>
