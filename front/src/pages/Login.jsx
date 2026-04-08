@@ -26,7 +26,7 @@ function Login() {
 
       toast.success("Inicio de sesión correcto");
 
-      // ✅ lee el rol de la respuesta, no del estado
+      //  lee el rol de la respuesta, no del estado
       const role = response.data.user?.role;
       navigate(role === "admin" ? "/admin" : "/");
     } catch (error) {
@@ -52,10 +52,6 @@ function Login() {
           {loading ? "Cargando..." : "Iniciar sesión"}
         </button>
       </form>
-
-      <p>
-        <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
-      </p>
 
       <p>
         ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
